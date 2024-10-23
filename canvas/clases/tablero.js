@@ -7,7 +7,7 @@ class Tablero extends dibujable{
         
         this.Winner=Winner;
         this.heightCelda=90;
-        this.widthCelda=100;
+        this.widthCelda=90;
         this.matrizLogica = this.GenerarMatriz();
         this.Winner=null;
     }

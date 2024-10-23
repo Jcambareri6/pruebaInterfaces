@@ -6,57 +6,73 @@
    
     ctx.fillRect(0, 0, canvas.width, canvas.height);  
     ctx.beginPath();
-    posx=300;
-    posY=500
-    radio=50
-    ctx.fillStyle = "#8A2BE2";
-    ctx.arc(posx, posY, radio, 0, 2 * Math.PI);
-    ctx.fill()
-    let dragin = false;
+    // posx=300;
+    // posY=500
+    // radio=50
+    // ctx.fillStyle = "#8A2BE2";
+    // ctx.arc(posx, posY, radio, 0, 2 * Math.PI);
+    // ctx.fill()
+    // let dragin = false;
     
-    canvas.addEventListener('mousedown', function(e) {
-
-      if(e.layerX>=posx-radio && (e.layerY<posY+radio && e.layerY>=posY-(radio*2))){
-        console.log("true");
-        dragin=true;
-      }
-    });
-    canvas.addEventListener("mousemove",function(e){
-        if(dragin){
-            newX= e.layerX;
-            newY=e.layerY;
-          
-        }
-        drawCircle(newX,newY);
-        posx=newX;
-        posY=newY;
-    })
-    function drawCircle(x, y) {
-        ctx.clearRect(x, y,canvas.width,canvas.height); 
+    // canvas.addEventListener('mousedown', function(e) {
         
-        ctx.fillStyle = "#FF0000";  
-        ctx.fillRect(0, 0, canvas.width, canvas.height);  
-        ctx.beginPath();
-        ctx.fillStyle = "#8A2BE2";
-        ctx.arc(x, y, radio, 0, 2 * Math.PI);  
-        ctx.fill();
-    }
-    canvas.addEventListener('mouseup', function() {
-        if (dragin) {
-            dragin = false;
+    //   if(e.layerX>=posx-radio && (e.layerY<posY+radio && e.layerY>=posY-(radio*2))){
+    //     console.log("true");
+    //     dragin=true;
+    //   }
+    // });
+    // canvas.addEventListener("mousemove",function(e){
+    //     if(dragin){
+    //         newX= e.layerX;
+    //         newY=e.layerY;
           
-        }
-    });
+    //     }
+    //     drawCircle(newX,newY);
+    //     posx=newX;
+    //     posY=newY;
+    // })
+    // function drawCircle(x, y) {
+    //     ctx.clearRect(x, y,canvas.width,canvas.height); 
+        
+    //     ctx.fillStyle = "#FF0000";  
+    //     ctx.fillRect(0, 0, canvas.width, canvas.height);  
+    //     ctx.beginPath();
+    //     ctx.fillStyle = "#8A2BE2";
+    //     ctx.arc(x, y, radio, 0, 2 * Math.PI);  
+    //     ctx.fill();
+    // }
+    // canvas.addEventListener('mouseup', function(e) {
+        
+    //     if (dragin) {
+    //         dragin = false;
+          
+    //     }
+    // });
     
-    // let f = new ficha(1000, 300, ctx, 50);
+  
 
     //  let tablero = new Tablero(200,-55,ctx,6,7,null);
     //  tablero.draw();
     //  tablero.posicionarFicha(0,new ficha(30,20,ctx,50));
     //  tablero.posicionarFicha(0,new ficha(30,20,ctx,50));
-    let juego1= new Juego(4);
+    let juego1= new Juego(6);
+     juego1.play();
+   
+    // posY=100
+    // // for (let i = 0; i <= 22; i++) {
+    //     let fichaAlien = new ficha(canvas.width - 100, posY, ctx, 35);
+    //     fichaAlien.setImagen('./img/ficha1.png');
+    //     fichaAlien.draw();
 
-    juego1.play();
+    
+    // // Dibujar fichas humanas
+ 
+    //     let fichaHumano = new ficha(100, posY , ctx, 35);
+    //     fichaHumano.setImagen('./img/ficha_Humano.png');
+    //     fichaHumano.draw();
+    
+    //  juego1.play();
+
        
  
    
