@@ -46,13 +46,13 @@ class Juego {
 
             case 4:
 
-                return new Tablero(425, 50, this.ctx, 6, 7, null);
+                return new Tablero(485, 50, this.ctx, 6, 8, null);
                 break;
             case 5:
-                return new Tablero(380.25, 50, this.ctx, 7, 7, null)
+                return new Tablero(420.25, 50, this.ctx, 7, 8, null)
             case 6:
 
-                return new Tablero(335.5, 50, this.ctx, 8, 7, null);
+                return new Tablero(385.5, 50, this.ctx, 8, 8, null);
 
                 break;
 
