@@ -13,37 +13,32 @@ class Tablero extends dibujable{
     }
 
     GenerarMatriz() { 
-
-
         this.matriz = []; 
-
         for (let i = 0; i < this.tamañoTableroX; i++) {
             let fila = [];
             for (let j = 0; j < this.tamañoTableroY; j++) {
                 let posiciones = this.calcularPosCasilleros(i, j);
-               if (i=0){
-                fila.push(new casillero(posiciones.posx, posiciones.posY, this.ctx, this.widthCelda, this.heightCelda,'./img/casillero.png'));
-               }
+                fila.push(new casillero(posiciones.posx, posiciones.posY, this.ctx, this.widthCelda, this.heightCelda,'./img/casillero.png'));  
             }
             this.matriz.push(fila); 
         }
         console.log(this.matriz);
         return this.matriz;
     }
-      draw(){
+
+    draw(){
         this.matriz.forEach(fila => {
             fila.forEach(casillero => casillero.draw());
         });
       }
       
-      calcularPosCasilleros(x, y) {
+    calcularPosCasilleros(x, y) {
         return {
             posx: this.posX  + x * this.widthCelda, 
             posY: this.posY + y * this.heightCelda 
         };
     }
-      posicionarFicha( col, ficha){
-       
+    posicionarFicha( col, ficha){
         for (let i = this.tamañoTableroY- 1; i >= 0; i--) {
             let casillero = this.matriz[col][i];
             if(casillero.getFicha()==null){
@@ -54,7 +49,16 @@ class Tablero extends dibujable{
             }
            
         }
-        
         return false;
-      }
+    }
+    dropZone(layerX,layerY) {
+        //falta chequear
+        if (layerX > this.posX && layerX < this.posX + this.tamañoTableroX 
+            && layerY > this.posY && layerY < this.posY + this.tamañoTableroY  ){
+            return true;
+        }
+    }
+    dibujarCasillero(selectedFicha){
+        
+    }
 }

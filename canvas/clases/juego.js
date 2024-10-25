@@ -66,9 +66,15 @@ class Juego {
       
     }
     gestionarTurnos() {
-        //si currentPlayerJugo(){
-        //  this.currentPlayer=cambiarTurno(); 
-        // }
+        if (this.currentPlayer == 'humanos'){
+            //if (aliens.lenght > 0) {
+            this.currentPlayer == 'aliens';
+            //else { finishGame()}
+        } else  if (this.currentPlayer == 'aliens'){
+            //if (humanos.lenght > 0) {
+            this.currentPlayer == 'humanos';
+            //else { finishGame()}
+        }
 
     }
     MouseDown(e) {
@@ -102,16 +108,16 @@ class Juego {
     
     MouseUp(e) {
         console.log("en la funcion moseup")
-        // if (this.selectedFicha.getIsDraggin() == true && this.selectedFicha.getSeleccionada()==true){
-            //if tablero.dropZone(e.layerX,e.layerY){}
+        if (this.selectedFicha.getIsDraggin() == true && this.selectedFicha.getSeleccionada()==true){
+            if (this.tablero.dropZone(e.layerX,e.layerY)){}
                 if(this.selectedFicha!=null){
-                   
-        
                     this.selectedFicha.setIsDraggin(false);
                     this.selectedFicha.setSeleccionada(false);
+                    //dibujar en el casillero al que corresponde, tablero.dibujarCasillero(selectedFicha)
+                    this.cambiarTurnos();
                     this.selectedFicha=null;
                 }
-        // }      
+        }      
     }
     Move(e) {
         //  console.log(this.selectedFicha)
