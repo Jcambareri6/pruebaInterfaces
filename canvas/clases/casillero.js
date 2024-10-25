@@ -1,5 +1,5 @@
 class casillero extends dibujable{
-    constructor (posX,posY,ctx,width,height,src){
+    constructor (posX,posY,ctx,width,height,src,posCol){
         super(posX,posY,ctx);
         this.width=width;
         this.height=height;
@@ -9,8 +9,10 @@ class casillero extends dibujable{
         this.img.onload = () => {
             this.draw(); 
         };
+        this.posCol=posCol;
        
     }
+    
     draw(){
         this.ctx.beginPath();
        
@@ -33,4 +35,5 @@ class casillero extends dibujable{
     setImagen(src){
         this.img.src = src;
     }
+    
 }

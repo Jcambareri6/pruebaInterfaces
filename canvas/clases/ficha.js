@@ -1,18 +1,32 @@
 class ficha extends dibujable {
     constructor(posX, posY, ctx,radio,src) {
         super(posX, posY, ctx);
+        this.initialPosX = posX;  
+        this.initialPosY = posY;
         this.radio=radio;
         this.seleccionada=false;
         this.isDraggin= false;
         this.img = new Image();
         this.src= src
         this.setImagen(src)
+   
         this.img.onload = () => {
             this.draw(); 
         };
-       
+    
       
     }
+    s
+
+    setPosicionInicial(x, y) {
+        this.initialPosX = x;
+        this.initialPosY = y;
+    }
+    resetPosicionInicial() {
+        this.posX = this.initialPosX;
+        this.posY = this.initialPosY;
+    }
+
     setImagen(src){
         this.img.src = src;
     }

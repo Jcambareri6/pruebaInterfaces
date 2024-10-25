@@ -18,7 +18,7 @@ class Tablero extends dibujable{
             let fila = [];
             for (let j = 0; j < this.tamañoTableroY; j++) {
                 let posiciones = this.calcularPosCasilleros(i, j);
-                fila.push(new casillero(posiciones.posx, posiciones.posY, this.ctx, this.widthCelda, this.heightCelda,'./img/casillero.png'));  
+                fila.push(new casillero(posiciones.posx, posiciones.posY, this.ctx, this.widthCelda, this.heightCelda,'./img/casillero.png',i));  
             }
             this.matriz.push(fila); 
         }
@@ -52,11 +52,15 @@ class Tablero extends dibujable{
         return false;
     }
     dropZone(layerX,layerY) {
-        //falta chequear
-        if (layerX > this.posX && layerX < this.posX + this.tamañoTableroX 
-            && layerY > this.posY && layerY < this.posY + this.tamañoTableroY  ){
-            return true;
-        }
+          
+            const inicioX = this.posX;
+            const finX = this.posX + this.tamañoTableroX * this.widthCelda;
+            const inicioY = this.posY;
+            const finY = this.posY + this.heightCelda;
+        
+            
+            return layerX >= inicioX && layerX <= finX && layerY >= inicioY && layerY <= finY;
+        
     }
     dibujarCasillero(selectedFicha){
         

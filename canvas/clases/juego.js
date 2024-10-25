@@ -5,7 +5,7 @@ class Juego {
 
         this.Modalidad = Modalidad;
 
-        this.currentPlayer = "aliens";
+        this.currentPlayer = "humanos";
         this.selectedFicha = null;
         this.tablero = this.setTablero(Modalidad);
         this.fichasAliens = [];
@@ -18,6 +18,7 @@ class Juego {
         this.canvas.addEventListener('mousemove', (e) => this.Move(e));
 
     }
+  
     iniciarFichas() {
 
         let posY = 100;
@@ -25,7 +26,8 @@ class Juego {
 
 
         let fichaAlien = new ficha(this.canvas.width - 100, posY, this.ctx, 25,'./img/ficha1.png');
-         console.log(fichaAlien.posX);
+        fichaAlien.setPosicionInicial(this.canvas.width - 100, posY)
+         
         
         
         this.fichasAliens.push(fichaAlien);
@@ -33,6 +35,7 @@ class Juego {
 
 
         let fichaHumano = new ficha(100, 100, this.ctx, 25,'./img/ficha_Humano.png');
+        fichaHumano.setPosicionInicial( 100, posY)
        
         
         this.fichasHumanos.push(fichaHumano);
@@ -46,13 +49,13 @@ class Juego {
 
             case 4:
 
-                return new Tablero(485, 50, this.ctx, 6, 8, null);
+                return new Tablero(485.5, 70, this.ctx, 6, 8, null);
                 break;
             case 5:
-                return new Tablero(420.25, 50, this.ctx, 7, 8, null)
+                return new Tablero(450.5, 70, this.ctx, 7, 8, null)
             case 6:
 
-                return new Tablero(385.5, 50, this.ctx, 8, 8, null);
+                return new Tablero(415.5, 50, this.ctx, 8, 8, null);
 
                 break;
 
@@ -66,13 +69,15 @@ class Juego {
       
     }
     gestionarTurnos() {
+        console.log("cambiando el turno.....")
+        console.log(this.currentPlayer == 'humanos')
         if (this.currentPlayer == 'humanos'){
             //if (aliens.lenght > 0) {
-            this.currentPlayer == 'aliens';
+            this.currentPlayer = 'aliens';
             //else { finishGame()}
-        } else  if (this.currentPlayer == 'aliens'){
+        } else{
             //if (humanos.lenght > 0) {
-            this.currentPlayer == 'humanos';
+            this.currentPlayer = 'humanos';
             //else { finishGame()}
         }
 
@@ -107,15 +112,30 @@ class Juego {
     }
     
     MouseUp(e) {
-        console.log("en la funcion moseup")
+
         if (this.selectedFicha.getIsDraggin() == true && this.selectedFicha.getSeleccionada()==true){
             if (this.tablero.dropZone(e.layerX,e.layerY)){}
                 if(this.selectedFicha!=null){
-                    this.selectedFicha.setIsDraggin(false);
-                    this.selectedFicha.setSeleccionada(false);
-                    //dibujar en el casillero al que corresponde, tablero.dibujarCasillero(selectedFicha)
-                    this.cambiarTurnos();
-                    this.selectedFicha=null;
+                    if(this.tablero.dropZone(e.layerX,e.layerY)){
+                        this.selectedFicha.setIsDraggin(false);
+                        this.selectedFicha.setSeleccionada(false);
+                        console.log(e.layerX);
+                        
+                        const columna = Math.floor((e.layerX - this.tablero.posX) / this.tablero.widthCelda);
+                        console.log(`columna numero ${columna-1}`)
+                        this.gestionarTurnos();
+                        console.log(this.currentPlayer)
+                        this.selectedFicha=null;
+                    }else{
+                        this.selectedFicha.setIsDraggin(false);
+                        this.selectedFicha.setSeleccionada(false);
+                        this.selectedFicha.resetPosicionInicial();
+                        this.reDrawCanvas();
+                        this.redibujarFichas();
+                        this.selectedFicha=null;
+                        
+                    }
+                    
                 }
         }      
     }
@@ -133,7 +153,7 @@ class Juego {
                  this.reDrawCanvas()
                  this.selectedFicha.draw();
                 
-                 this.redibujarFichas();            
+                 this.redibujarFichas();   
                 
     
             }
