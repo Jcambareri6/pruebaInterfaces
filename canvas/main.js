@@ -55,7 +55,7 @@
     //  tablero.draw();
     //  tablero.posicionarFicha(0,new ficha(30,20,ctx,50));
     //  tablero.posicionarFicha(0,new ficha(30,20,ctx,50));
-    let juego1= new Juego(6);
+    let juego1= new Juego(4);
      juego1.play();
    
     // posY=100

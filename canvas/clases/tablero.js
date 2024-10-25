@@ -6,8 +6,8 @@ class Tablero extends dibujable{
         this.tamañoTableroY=tamañoTableroY;
         
         this.Winner=Winner;
-        this.heightCelda=90;
-        this.widthCelda=90;
+        this.heightCelda=70;
+        this.widthCelda=70;
         this.matrizLogica = this.GenerarMatriz();
         this.Winner=null;
     }
@@ -42,7 +42,7 @@ class Tablero extends dibujable{
         };
     }
       posicionarFicha( col, ficha){
-        console.log("entre")
+       
         for (let i = this.tamañoTableroY- 1; i >= 0; i--) {
             let casillero = this.matriz[col][i];
             if(casillero.getFicha()==null){

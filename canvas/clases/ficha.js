@@ -7,6 +7,9 @@ class ficha extends dibujable {
         this.img = new Image();
         this.src= src
         this.setImagen(src)
+        this.img.onload = () => {
+            this.draw(); 
+        };
        
       
     }
@@ -14,21 +17,25 @@ class ficha extends dibujable {
         this.img.src = src;
     }
     draw() {
-       console.log("dibujando.....")
+       
         this.ctx.beginPath();
+       
         this.ctx.drawImage(
-                this.img, 
-                this.posX - this.radio,   
-                this.posY - this.radio,  
-                this.radio * 2,         
-                this.radio * 2            
-            );
+            this.img, 
+            this.posX - this.radio,   
+            this.posY - this.radio,  
+            this.radio * 2,         
+            this.radio * 2            
+        );
+    
+        
         this.ctx.fill();
         this.ctx.closePath();
     }
    
    
     isMouseOver(x = 0, y = 0) {
+       
         return(x>=this.posX-this.radio && (y<this.posY+this.radio && y>=this.posY-(this.radio*2))); 
     }
         // Getter y Setter para "seleccionada"
