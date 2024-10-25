@@ -5,12 +5,13 @@ class Juego {
 
         this.Modalidad = Modalidad;
 
-        this.currentPlayer = "humanos";
+        this.currentPlayer = "aliens";
         this.selectedFicha = null;
         this.tablero = this.setTablero(Modalidad);
         this.fichasAliens = [];
         this.fichasHumanos = [];
-        this.iniciarFichas();
+        this.iniciarFichas()
+   
        
         this.canvas.addEventListener('mousedown', (e) => this.MouseDown(e));
         this.canvas.addEventListener('mouseup', (e) => this.MouseUp(e));
@@ -24,13 +25,14 @@ class Juego {
 
 
         let fichaAlien = new ficha(this.canvas.width - 100, posY, this.ctx, 25,'./img/ficha1.png');
+         console.log(fichaAlien.posX);
         
         
         this.fichasAliens.push(fichaAlien);
 
 
 
-        let fichaHumano = new ficha(100, 200, this.ctx, 25,'./img/ficha_Humano.png');
+        let fichaHumano = new ficha(100, 100, this.ctx, 25,'./img/ficha_Humano.png');
        
         
         this.fichasHumanos.push(fichaHumano);
@@ -59,6 +61,7 @@ class Juego {
 
     }
     play() {
+     
         this.tablero.draw();
       
     }
@@ -69,40 +72,34 @@ class Juego {
 
     }
     MouseDown(e) {
+        let mouseX= this.canvas.offsetLeft;
         this.fichasHumanos.forEach(ficha => {
             // console.log(ficha)
-             console.log(e.layerX)
-             console.log(e.layerY)
-     
-            if (ficha.isMouseOver(e.layerX, e.layerY)) {
+             
+            //  console.log(e.layerY)
+          
+            if (ficha.isMouseOver((e.layerX-this.canvas.offsetLeft), e.layerY)) {
               
-                if (this.currentPlayer == "humanos") {
-                    
-                
-                    this.selectedFicha = ficha;
-                    this.selectedFicha.setSeleccionada(true);
-                    this.selectedFicha.setIsDraggin(true);
-                }
+                this.configurarDrag("humanos",ficha)
             }
            
         })
 
         this.fichasAliens.forEach(ficha => {
-            console.log(ficha)
-            console.log(e.layerX)
-     
-            if (ficha.isMouseOver(e.layerX, e.layerY)) {
-                if (this.currentPlayer == "aliens") {
-                    this.selectedFicha = ficha;
-                    this.selectedFicha.setSeleccionada(true);
-                    this.selectedFicha.setIsDraggin(true);
-                }
+            // console.log(ficha)
+            // console.log(e.layerX)
+            // console.log("LayerX:", e.layerX, "LayerY:", e.layerY);
+            // console.log("posicion en el canvas posX:", ficha.posX, "posY:", ficha.posY);
+            console.log(`radio ${ficha.radio}`)
+            if (ficha.isMouseOver((e.layerX-this.canvas.offsetLeft), e.layerY)) {
+                this.configurarDrag("aliens",ficha)
             }
            
         })
 
       
     }
+    
     MouseUp(e) {
         console.log("en la funcion moseup")
         // if (this.selectedFicha.getIsDraggin() == true && this.selectedFicha.getSeleccionada()==true){
@@ -139,7 +136,13 @@ class Juego {
         
      
     }
-
+    configurarDrag(turno,ficha){
+        if (this.currentPlayer == turno) {
+            this.selectedFicha = ficha;
+            this.selectedFicha.setSeleccionada(true);
+            this.selectedFicha.setIsDraggin(true);
+        }
+    }
     reDrawCanvas() {
         // Borra todo el canvas
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);

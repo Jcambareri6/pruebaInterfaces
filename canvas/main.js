@@ -55,21 +55,10 @@
     //  tablero.draw();
     //  tablero.posicionarFicha(0,new ficha(30,20,ctx,50));
     //  tablero.posicionarFicha(0,new ficha(30,20,ctx,50));
-    let juego1= new Juego(4);
+    let juego1= new Juego(6);
      juego1.play();
    
-    // posY=100
-    // // for (let i = 0; i <= 22; i++) {
-    //     let fichaAlien = new ficha(canvas.width - 100, posY, ctx, 35);
-    //     fichaAlien.setImagen('./img/ficha1.png');
-    //     fichaAlien.draw();
-
-    
-    // // Dibujar fichas humanas
- 
-    //     let fichaHumano = new ficha(100, posY , ctx, 35);
-    //     fichaHumano.setImagen('./img/ficha_Humano.png');
-    //     fichaHumano.draw();
+   
     
     //  juego1.play();
 

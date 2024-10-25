@@ -1,17 +1,26 @@
 class casillero extends dibujable{
-    constructor (posX,posY,ctx,width,height){
+    constructor (posX,posY,ctx,width,height,src){
         super(posX,posY,ctx);
         this.width=width;
         this.height=height;
          this.ficha = null;
+         this.img= new Image();
+         this.setImagen(src)
+        this.img.onload = () => {
+            this.draw(); 
+        };
+       
     }
     draw(){
         this.ctx.beginPath();
-        this.ctx.fillStyle = "#8A2BE2";
-        this.ctx.fillRect(this.posX, this.posY, this.width, this.height);
-            this.ctx.strokeStyle = "#000000"; // Define el color del stroke (negro en este caso)
-        this.ctx.lineWidth = 2; // Ancho del stroke
-        this.ctx.strokeRect(this.posX, this.posY, this.width, this.height);
+       
+        this.ctx.drawImage(
+            this.img, 
+            this.posX ,   
+            this.posY ,  
+            this.width,         
+            this.height            
+        );
         this.ctx.fill();
         this.ctx.closePath();
     }
@@ -20,5 +29,8 @@ class casillero extends dibujable{
     }
     setFicha(ficha){
         this.ficha=ficha;
+    }
+    setImagen(src){
+        this.img.src = src;
     }
 }

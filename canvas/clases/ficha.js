@@ -35,8 +35,11 @@ class ficha extends dibujable {
    
    
     isMouseOver(x = 0, y = 0) {
-       
-        return(x>=this.posX-this.radio && (y<this.posY+this.radio && y>=this.posY-(this.radio*2))); 
+        let distance = Math.sqrt((x - this.posX) ** 2 + (y - this.posY) ** 2);
+        console.log(`Mouse X: ${x}, Mouse Y: ${y}`);
+        console.log(`Ficha posX: ${this.posX}, posY: ${this.posY}`);
+        console.log(`Resultado distancia: ${distance}`);
+        return distance <= this.radio;  // Compara con el radio
     }
         // Getter y Setter para "seleccionada"
     setSeleccionada(seleccionada) {
