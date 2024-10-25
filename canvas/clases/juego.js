@@ -117,15 +117,19 @@ class Juego {
             if (this.tablero.dropZone(e.layerX,e.layerY)){}
                 if(this.selectedFicha!=null){
                     if(this.tablero.dropZone(e.layerX,e.layerY)){
-                        this.selectedFicha.setIsDraggin(false);
-                        this.selectedFicha.setSeleccionada(false);
-                        console.log(e.layerX);
-                        
+                        //anda mal el columna 
                         const columna = Math.floor((e.layerX - this.tablero.posX) / this.tablero.widthCelda);
                         console.log(`columna numero ${columna-1}`)
-                        this.gestionarTurnos();
-                        console.log(this.currentPlayer)
-                        this.selectedFicha=null;
+                        
+                        if (this.tablero.posicionarFicha(columna, this.selectedFicha)){
+                            this.tablero.dibujarCasillero(columna, ficha);
+                            this.selectedFicha.setIsDraggin(false);
+                            this.selectedFicha.setSeleccionada(false);
+                            console.log(e.layerX);
+                            this.gestionarTurnos();
+                            console.log(this.currentPlayer)
+                            this.selectedFicha=null;
+                        }
                     }else{
                         this.selectedFicha.setIsDraggin(false);
                         this.selectedFicha.setSeleccionada(false);

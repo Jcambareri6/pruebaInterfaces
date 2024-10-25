@@ -46,8 +46,7 @@ class Tablero extends dibujable{
                 console.log(`posicion en fila ${i}`)
                 console.log(this.matriz[col][i])
                 return true;
-            }
-           
+            } 
         }
         return false;
     }
@@ -59,10 +58,22 @@ class Tablero extends dibujable{
             const finY = this.posY + this.heightCelda;
         
             
-            return layerX >= inicioX && layerX <= finX && layerY >= inicioY && layerY <= finY;
+            return layerX >= inicioX+this.widthCelda && layerX <= finX + this.widthCelda && layerY >= inicioY && layerY <= finY;
         
     }
-    dibujarCasillero(selectedFicha){
-        
+    dibujarCasillero(columna, ficha){
+        let i=0;
+        let encontro = false;
+        while (i <= this.tamañoTableroY && !encontro){
+            let casillero = this.matriz[columna][i];
+            if(casillero.getFicha()!==ficha){
+                //dibujar
+            }
+            if (casillero.getFicha==ficha){
+                //dibujar
+                encontro=true;
+            } 
+        }
+        return false;
     }
 }
