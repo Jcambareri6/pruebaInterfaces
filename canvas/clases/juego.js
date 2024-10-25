@@ -121,8 +121,8 @@ class Juego {
                         const columna = Math.floor((e.layerX - this.tablero.posX) / this.tablero.widthCelda);
                         console.log(`columna numero ${columna-1}`)
                         
-                        if (this.tablero.posicionarFicha(columna, this.selectedFicha)){
-                            this.tablero.dibujarCasillero(columna, ficha);
+                        if (this.tablero.posicionarFicha(columna-1, this.selectedFicha)){
+                            this.tablero.dibujarCasillero(columna-1, ficha);
                             this.selectedFicha.setIsDraggin(false);
                             this.selectedFicha.setSeleccionada(false);
                             console.log(e.layerX);
