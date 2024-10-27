@@ -1,6 +1,8 @@
-class ficha extends dibujable {
+class ficha  {
     constructor(posX, posY, ctx,radio,src) {
-        super(posX, posY, ctx);
+        this.posX=posX;
+        this.posY= posY;
+        this.ctx=ctx;
         this.initialPosX = posX;  
         this.initialPosY = posY;
         this.radio=radio;

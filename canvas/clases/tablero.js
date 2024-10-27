@@ -1,6 +1,9 @@
-class Tablero extends dibujable{
+class Tablero {
     constructor(posX, posY ,ctx,tamañoTableroX,tamañoTableroY, Winner,){
-        super(posX,posY,ctx)
+        
+        this.posX=posX;
+        this.posY= posY;
+        this.ctx=ctx;
  
         this.tamañoTableroX=tamañoTableroX;
         this.tamañoTableroY=tamañoTableroY;
@@ -45,10 +48,10 @@ class Tablero extends dibujable{
                 casillero.setFicha(ficha);
                 console.log(`posicion en fila ${i}`)
                 console.log(this.matriz[col][i])
-                return true;
+                return i;
             } 
         }
-        return false;
+        return -1;
     }
     dropZone(layerX,layerY) {
           
@@ -61,19 +64,15 @@ class Tablero extends dibujable{
             return layerX >= inicioX+this.widthCelda && layerX <= finX + this.widthCelda && layerY >= inicioY && layerY <= finY;
         
     }
-    dibujarCasillero(columna, ficha){
-        let i=0;
-        let encontro = false;
-        while (i <= this.tamañoTableroY && !encontro){
-            let casillero = this.matriz[columna][i];
-            if(casillero.getFicha()!==ficha){
-                //dibujar
-            }
-            if (casillero.getFicha==ficha){
-                //dibujar
-                encontro=true;
-            } 
-        }
-        return false;
+    dibujarCasillero(columna,fila, ficha){
+        const casillero = this.matriz[columna][fila];
+    
+        
+        const fichaPosX = casillero.posX + (this.widthCelda / 2);
+        const fichaPosY = casillero.posY + (this.heightCelda / 2);
+
+        ficha.setPosX(fichaPosX);
+        ficha.setPosY(fichaPosY);
+        ficha.draw();
     }
 }

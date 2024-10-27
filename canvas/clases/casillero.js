@@ -1,6 +1,8 @@
-class casillero extends dibujable{
+class casillero {
     constructor (posX,posY,ctx,width,height,src,posCol){
-        super(posX,posY,ctx);
+        this.posX=posX;
+        this.posY= posY;
+        this.ctx=ctx;
         this.width=width;
         this.height=height;
          this.ficha = null;

@@ -1,7 +1,8 @@
 class Juego {
-    constructor(Modalidad) {
-        this.canvas = document.getElementById("canvasP");
-        this.ctx = this.canvas.getContext("2d");
+    constructor(Modalidad,canvas,ctx) {
+        this.canvas=canvas;
+        this.ctx=ctx;
+     
 
         this.Modalidad = Modalidad;
 
@@ -20,31 +21,59 @@ class Juego {
     }
   
     iniciarFichas() {
+        let tamañoX=0;
+        let tamañoY=7;
+        switch (this.Modalidad) {
+          
+            case 4:
+                tamañoX = 6;
+                this.generarFichas((tamañoX*tamañoY)/2)
+                break;
+            case 5:
+                tamañoX=7;
+                 
+                this.generarFichas((tamañoX*tamañoY)/2)
+            case 6:
 
-        let posY = 100;
+                 tamañoX=8;
+                  
+                this.generarFichas((tamañoX*tamañoY)/2)
+
+                break;
 
 
-
-        let fichaAlien = new ficha(this.canvas.width - 100, posY, this.ctx, 25,'./img/ficha1.png');
-        fichaAlien.setPosicionInicial(this.canvas.width - 100, posY)
-         
-        
-        
-        this.fichasAliens.push(fichaAlien);
-
-
-
-        let fichaHumano = new ficha(100, 100, this.ctx, 25,'./img/ficha_Humano.png');
-        fichaHumano.setPosicionInicial( 100, posY)
-       
-        
-        this.fichasHumanos.push(fichaHumano);
-
-
+        }
+      
     }
-
+    generarFichas(cantFichas){
+        const posYMin = 100;
+        const posYMax = 500;
+        console.log(cantFichas)
+          // Función para generar posiciones aleatorias en un rango específico
+          const getRandomPosition = (minX, maxX, minY, maxY) => {
+            const x = Math.floor(Math.random() * (maxX - minX + 1)) + minX;
+            const y = Math.floor(Math.random() * (maxY - minY + 1)) + minY;
+            return { x, y };
+        };
+    
+        // Generar fichas para Aliens
+        for (let i = 0; i < cantFichas; i++) {
+            const alienPos = getRandomPosition(this.canvas.width - 250, this.canvas.width - 100, posYMin, posYMax);
+            let fichaAlien = new ficha(alienPos.x, alienPos.y, this.ctx, 25, './img/ficha1.png');
+            fichaAlien.setPosicionInicial(alienPos.x, alienPos.y);
+            this.fichasAliens.push(fichaAlien);
+        }
+    
+        // Generar fichas para Humanos
+        for (let i = 0; i <cantFichas; i++) {
+            const humanoPos = getRandomPosition(100, 250, posYMin, posYMax);
+            let fichaHumano = new ficha(humanoPos.x, humanoPos.y, this.ctx, 25, './img/ficha_Humano.png');
+            fichaHumano.setPosicionInicial(humanoPos.x, humanoPos.y);
+            this.fichasHumanos.push(fichaHumano);
+        }
+    }
     setTablero(Modalidad) {
-        console.log(Modalidad)
+        
         switch (Modalidad) {
 
             case 4:
@@ -117,27 +146,27 @@ class Juego {
             if (this.tablero.dropZone(e.layerX,e.layerY)){}
                 if(this.selectedFicha!=null){
                     if(this.tablero.dropZone(e.layerX,e.layerY)){
-                        //anda mal el columna 
+                     
                         const columna = Math.floor((e.layerX - this.tablero.posX) / this.tablero.widthCelda);
                         console.log(`columna numero ${columna-1}`)
-                        
-                        if (this.tablero.posicionarFicha(columna-1, this.selectedFicha)){
-                            this.tablero.dibujarCasillero(columna-1, ficha);
+                        let FilafichaPosicionada= this.tablero.posicionarFicha(columna-1,this.selectedFicha)
+                        if (FilafichaPosicionada!= -1){
+                            console.log(`ficha posicionada en  columna ${columna-1} y fila ${FilafichaPosicionada}`)
+                            console.log("posicione ficha")
+                            // 
                             this.selectedFicha.setIsDraggin(false);
                             this.selectedFicha.setSeleccionada(false);
-                            console.log(e.layerX);
+                            this.tablero.dibujarCasillero(columna-1,FilafichaPosicionada, this.selectedFicha);
+                            this.reDrawCanvas();
+                            this.redibujarFichas()
                             this.gestionarTurnos();
-                            console.log(this.currentPlayer)
                             this.selectedFicha=null;
+                        }else{
+                            this.reset()
                         }
                     }else{
-                        this.selectedFicha.setIsDraggin(false);
-                        this.selectedFicha.setSeleccionada(false);
-                        this.selectedFicha.resetPosicionInicial();
-                        this.reDrawCanvas();
-                        this.redibujarFichas();
-                        this.selectedFicha=null;
-                        
+                      
+                        this.reset()
                     }
                     
                 }
@@ -183,6 +212,14 @@ class Juego {
         
         this.play()
         
+    }
+    reset(){
+        this.selectedFicha.setIsDraggin(false);
+        this.selectedFicha.setSeleccionada(false);
+        this.selectedFicha.resetPosicionInicial();
+        this.reDrawCanvas();
+        this.redibujarFichas();
+        this.selectedFicha=null;
     }
     
     redibujarFichas() {
