@@ -6,9 +6,12 @@
    
     ctx.fillRect(0, 0, canvas.width, canvas.height);  
     ctx.beginPath();
-    
+    setTimeout(() => {
+        let juego1= new Juego(4,canvas,ctx);
+        juego1.play();
+      
+    }, 1);
 
-   
    
 
        

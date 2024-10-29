@@ -57,7 +57,7 @@ class Juego {
         };
     
         // Generar fichas para Aliens
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < cantFichas; i++) {
             const alienPos = getRandomPosition(this.canvas.width - 250, this.canvas.width - 100, posYMin, posYMax);
             let fichaAlien = new ficha(alienPos.x, alienPos.y, this.ctx, 25, './img/ficha1.png');
             fichaAlien.setPosicionInicial(alienPos.x, alienPos.y);
@@ -65,7 +65,7 @@ class Juego {
         }
     
         // Generar fichas para Humanos
-        for (let i = 0; i <4; i++) {
+        for (let i = 0; i <cantFichas; i++) {
             const humanoPos = getRandomPosition(100, 250, posYMin, posYMax);
             let fichaHumano = new ficha(humanoPos.x, humanoPos.y, this.ctx, 25, './img/ficha_Humano.png');
             fichaHumano.setPosicionInicial(humanoPos.x, humanoPos.y);
@@ -114,24 +114,20 @@ class Juego {
     MouseDown(e) {
         let mouseX= this.canvas.offsetLeft;
         this.fichasHumanos.forEach(ficha => {
-            // console.log(ficha)
-             
-            //  console.log(e.layerY)
+        
           
-            if (ficha.isMouseOver((e.layerX-this.canvas.offsetLeft), e.layerY)) {
-              
+            if ( !ficha.getPosicionada()  && ficha.isMouseOver((e.layerX-this.canvas.offsetLeft), e.layerY)) {
+
+                console.log(ficha.getPosicionada());
                 this.configurarDrag("humanos",ficha)
             }
            
         })
 
         this.fichasAliens.forEach(ficha => {
-            // console.log(ficha)
-            // console.log(e.layerX)
-            // console.log("LayerX:", e.layerX, "LayerY:", e.layerY);
-            // console.log("posicion en el canvas posX:", ficha.posX, "posY:", ficha.posY);
+           
             console.log(`radio ${ficha.radio}`)
-            if (ficha.isMouseOver((e.layerX-this.canvas.offsetLeft), e.layerY)) {
+            if ( !ficha.getPosicionada() && ficha.isMouseOver((e.layerX-this.canvas.offsetLeft), e.layerY)) {
                 this.configurarDrag("aliens",ficha)
             }
            
@@ -150,19 +146,29 @@ class Juego {
                         const columna = Math.floor((e.layerX - this.tablero.posX) / this.tablero.widthCelda);
                         console.log(`columna numero ${columna-1}`)
                         let FilafichaPosicionada= this.tablero.posicionarFicha(columna-1,this.selectedFicha)
-                        if (FilafichaPosicionada!= -1){
+                        if (FilafichaPosicionada!= -1 ){
                             console.log(`ficha posicionada en  columna ${columna-1} y fila ${FilafichaPosicionada}`)
                             console.log("posicione ficha")
-                            this.selectedFicha.setIsDraggin(false);
-                            this.selectedFicha.setSeleccionada(false);
-                            this.tablero.dibujarCasillero(columna-1,FilafichaPosicionada, this.selectedFicha);
-                            
-                            this.reDrawCanvas();
-                            this.redibujarFichas()
+                            if(this.selectedFicha.getIsDraggin()==true && this.selectedFicha.getSeleccionada()==true){
+                             
+                                this.selectedFicha.setPosicionada(true);
+                             
+                               
+                                this.tablero.dibujarCasillero(columna-1,FilafichaPosicionada, this.selectedFicha);
+                                this.selectedFicha.setIsDraggin(false);
                            
-                            // this.eliminarFicha(this.currentPlayer);
-                            this.gestionarTurnos();
-                            this.selectedFicha=null;
+                                this.reDrawCanvas();
+                                this.redibujarFichas()
+                                console.log(this.tablero.hayGanadorDesde(this.currentPlayer,this.Modalidad,columna-1,FilafichaPosicionada));
+                                if(this.tablero.hayGanadorDesde(this.currentPlayer,this.Modalidad,columna-1,FilafichaPosicionada)){
+                                    console.log("ganeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+                                }
+                               
+                                // this.eliminarFicha(this.currentPlayer);
+                                this.gestionarTurnos();
+                                this.selectedFicha=null;
+                            }
+                           
                         }else{
                             this.reset()
                         }
@@ -197,6 +203,7 @@ class Juego {
         
      
     }
+    
     eliminarFicha(equipo){ 
         console.log(`entre ${equipo} `)
         if(equipo=="humanos"){

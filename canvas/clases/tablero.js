@@ -64,6 +64,60 @@ class Tablero {
             return layerX >= inicioX+this.widthCelda && layerX <= finX + this.widthCelda && layerY >= inicioY && layerY <= finY;
         
     }
+    hayGanadorDesde(jugador, nFichas, fila, col) {
+        const filas =this.matrizLogica.length;
+        const columnas = this.matrizLogica[0].length;
+    
+        // Verificación horizontal (derecha)
+        if (col <= columnas - nFichas) {
+            let ganador = true;
+            for (let i = 0; i < nFichas; i++) {
+                if (this.matrizLogica[fila][col + i] !== jugador) {
+                    ganador = false;
+                    break;
+                }
+            }
+            if (ganador) return true;
+        }
+    
+        // Verificación vertical (abajo)
+        if (fila <= filas - nFichas) {
+            let ganador = true;
+            for (let i = 0; i < nFichas; i++) {
+                if (this.matrizLogica[fila + i][col] !== jugador) {
+                    ganador = false;
+                    break;
+                }
+            }
+            if (ganador) return true;
+        }
+    
+        // Verificación diagonal (de izquierda a derecha, ↘)
+        if (fila <= filas - nFichas && col <= columnas - nFichas) {
+            let ganador = true;
+            for (let i = 0; i < nFichas; i++) {
+                if (this.matrizLogica[fila + i][col + i] !== jugador) {
+                    ganador = false;
+                    break;
+                }
+            }
+            if (ganador) return true;
+        }
+    
+        // Verificación diagonal (de derecha a izquierda, ↙)
+        if (fila <= filas - nFichas && col >= nFichas - 1) {
+            let ganador = true;
+            for (let i = 0; i < nFichas; i++) {
+                if (this.matrizLogica[fila + i][col - i] !== jugador) {
+                    ganador = false;
+                    break;
+                }
+            }
+            if (ganador) return true;
+        }
+    
+        return false;
+    }
     dibujarCasillero(columna,fila, ficha){
         const casillero = this.matriz[columna][fila];
     
@@ -74,5 +128,6 @@ class Tablero {
         ficha.setPosX(fichaPosX);
         ficha.setPosY(fichaPosY);
         ficha.draw();
+      
     }
 }

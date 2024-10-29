@@ -7,10 +7,11 @@ class ficha  {
         this.initialPosY = posY;
         this.radio=radio;
         this.seleccionada=false;
+        this.posicionada=false;
         this.isDraggin= false;
         this.img = new Image();
         this.src= src
-        this.equipo=equipo;
+        
         this.setImagen(src)
    
         this.img.onload = () => {
@@ -19,7 +20,7 @@ class ficha  {
     
       
     }
-    s
+    
 
     setPosicionInicial(x, y) {
         this.initialPosX = x;
@@ -53,9 +54,7 @@ class ficha  {
    
     isMouseOver(x = 0, y = 0) {
         let distance = Math.sqrt((x - this.posX) ** 2 + (y - this.posY) ** 2);
-        console.log(`Mouse X: ${x}, Mouse Y: ${y}`);
-        console.log(`Ficha posX: ${this.posX}, posY: ${this.posY}`);
-        console.log(`Resultado distancia: ${distance}`);
+       
         return distance <= this.radio;  // Compara con el radio
     }
         // Getter y Setter para "seleccionada"
@@ -65,6 +64,12 @@ class ficha  {
 
     getSeleccionada() {
         return this.seleccionada;
+    }
+    getPosicionada(){
+        return this.posicionada;
+    }
+    setPosicionada(posicionada){
+         this.posicionada=posicionada;
     }
 
     // Getter y Setter para "isDraggin"
