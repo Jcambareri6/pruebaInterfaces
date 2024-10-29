@@ -160,7 +160,7 @@ class Juego {
                             this.reDrawCanvas();
                             this.redibujarFichas()
                            
-                            this.eliminarFicha(this.currentPlayer);
+                            // this.eliminarFicha(this.currentPlayer);
                             this.gestionarTurnos();
                             this.selectedFicha=null;
                         }else{
