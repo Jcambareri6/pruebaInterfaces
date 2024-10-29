@@ -57,7 +57,7 @@ class Juego {
         };
     
         // Generar fichas para Aliens
-        for (let i = 0; i < cantFichas; i++) {
+        for (let i = 0; i < 4; i++) {
             const alienPos = getRandomPosition(this.canvas.width - 250, this.canvas.width - 100, posYMin, posYMax);
             let fichaAlien = new ficha(alienPos.x, alienPos.y, this.ctx, 25, './img/ficha1.png');
             fichaAlien.setPosicionInicial(alienPos.x, alienPos.y);
@@ -65,7 +65,7 @@ class Juego {
         }
     
         // Generar fichas para Humanos
-        for (let i = 0; i <cantFichas; i++) {
+        for (let i = 0; i <4; i++) {
             const humanoPos = getRandomPosition(100, 250, posYMin, posYMax);
             let fichaHumano = new ficha(humanoPos.x, humanoPos.y, this.ctx, 25, './img/ficha_Humano.png');
             fichaHumano.setPosicionInicial(humanoPos.x, humanoPos.y);
@@ -99,7 +99,7 @@ class Juego {
     }
     gestionarTurnos() {
         console.log("cambiando el turno.....")
-        console.log(this.currentPlayer == 'humanos')
+ 
         if (this.currentPlayer == 'humanos'){
             //if (aliens.lenght > 0) {
             this.currentPlayer = 'aliens';
@@ -153,12 +153,14 @@ class Juego {
                         if (FilafichaPosicionada!= -1){
                             console.log(`ficha posicionada en  columna ${columna-1} y fila ${FilafichaPosicionada}`)
                             console.log("posicione ficha")
-                            // 
                             this.selectedFicha.setIsDraggin(false);
                             this.selectedFicha.setSeleccionada(false);
                             this.tablero.dibujarCasillero(columna-1,FilafichaPosicionada, this.selectedFicha);
+                            
                             this.reDrawCanvas();
                             this.redibujarFichas()
+                           
+                            this.eliminarFicha(this.currentPlayer);
                             this.gestionarTurnos();
                             this.selectedFicha=null;
                         }else{
@@ -194,6 +196,20 @@ class Juego {
         
         
      
+    }
+    eliminarFicha(equipo){ 
+        console.log(`entre ${equipo} `)
+        if(equipo=="humanos"){
+            let posf=this.fichasHumanos.indexOf(this.selectedFicha);
+            console.log(`posicion en arreglo ${posf}`)
+
+            this.fichasHumanos.splice(posf,1);
+            console.log(`size ${this.fichasHumanos.length()}`)
+        }else{
+            let posf=this.fichasAliens.indexOf(this.selectedFicha);
+            this.fichasAliens.splice(posf,1);
+        }
+        console.log("fichas humanos "+ this.fichasHumanos.length())
     }
     configurarDrag(turno,ficha){
         if (this.currentPlayer == turno) {

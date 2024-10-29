@@ -1,5 +1,5 @@
 class ficha  {
-    constructor(posX, posY, ctx,radio,src) {
+    constructor(posX, posY, ctx,radio,src,equipo) {
         this.posX=posX;
         this.posY= posY;
         this.ctx=ctx;
@@ -10,6 +10,7 @@ class ficha  {
         this.isDraggin= false;
         this.img = new Image();
         this.src= src
+        this.equipo=equipo;
         this.setImagen(src)
    
         this.img.onload = () => {
