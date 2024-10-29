@@ -11,7 +11,8 @@ class ficha  {
         this.isDraggin= false;
         this.img = new Image();
         this.src= src
-        
+        this.equipo = equipo
+
         this.setImagen(src)
    
         this.img.onload = () => {
@@ -106,6 +107,14 @@ class ficha  {
 
     getRadio() {
         return this.radio;
+    }
+
+    setEquipo(equipo) {
+        this.equipo = equipo;
+    }
+
+    getEquipo() {
+        return this.equipo;
     }
    
 

@@ -59,7 +59,7 @@ class Juego {
         // Generar fichas para Aliens
         for (let i = 0; i < cantFichas; i++) {
             const alienPos = getRandomPosition(this.canvas.width - 250, this.canvas.width - 100, posYMin, posYMax);
-            let fichaAlien = new ficha(alienPos.x, alienPos.y, this.ctx, 25, './img/ficha1.png');
+            let fichaAlien = new ficha(alienPos.x, alienPos.y, this.ctx, 25, './img/ficha1.png','aliens');
             fichaAlien.setPosicionInicial(alienPos.x, alienPos.y);
             this.fichasAliens.push(fichaAlien);
         }
@@ -67,7 +67,7 @@ class Juego {
         // Generar fichas para Humanos
         for (let i = 0; i <cantFichas; i++) {
             const humanoPos = getRandomPosition(100, 250, posYMin, posYMax);
-            let fichaHumano = new ficha(humanoPos.x, humanoPos.y, this.ctx, 25, './img/ficha_Humano.png');
+            let fichaHumano = new ficha(humanoPos.x, humanoPos.y, this.ctx, 25, './img/ficha_Humano.png','humanos');
             fichaHumano.setPosicionInicial(humanoPos.x, humanoPos.y);
             this.fichasHumanos.push(fichaHumano);
         }
@@ -139,16 +139,12 @@ class Juego {
     MouseUp(e) {
 
         if (this.selectedFicha.getIsDraggin() == true && this.selectedFicha.getSeleccionada()==true){
-            if (this.tablero.dropZone(e.layerX,e.layerY)){}
                 if(this.selectedFicha!=null){
                     if(this.tablero.dropZone(e.layerX,e.layerY)){
                      
                         const columna = Math.floor((e.layerX - this.tablero.posX) / this.tablero.widthCelda);
-                        console.log(`columna numero ${columna-1}`)
-                        let FilafichaPosicionada= this.tablero.posicionarFicha(columna-1,this.selectedFicha)
+                        let FilafichaPosicionada= this.tablero.posicionarFicha(columna-1,this.selectedFicha);
                         if (FilafichaPosicionada!= -1 ){
-                            console.log(`ficha posicionada en  columna ${columna-1} y fila ${FilafichaPosicionada}`)
-                            console.log("posicione ficha")
                             if(this.selectedFicha.getIsDraggin()==true && this.selectedFicha.getSeleccionada()==true){
                              
                                 this.selectedFicha.setPosicionada(true);
@@ -159,8 +155,8 @@ class Juego {
                            
                                 this.reDrawCanvas();
                                 this.redibujarFichas()
-                                console.log(this.tablero.hayGanadorDesde(this.currentPlayer,this.Modalidad,columna-1,FilafichaPosicionada));
-                                if(this.tablero.hayGanadorDesde(this.currentPlayer,this.Modalidad,columna-1,FilafichaPosicionada)){
+                                console.log(this.tablero.hayGanador(this.currentPlayer,this.Modalidad,FilafichaPosicionada,columna-1));
+                                if(this.tablero.hayGanador(this.currentPlayer,this.Modalidad,FilafichaPosicionada,columna-1)){
                                     console.log("ganeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
                                 }
                                
