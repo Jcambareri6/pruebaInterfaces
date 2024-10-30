@@ -48,7 +48,6 @@ class Juego {
     generarFichas(cantFichas){
         const posYMin = 100;
         const posYMax = 500;
-        console.log(cantFichas)
           // Función para generar posiciones aleatorias en un rango específico
           const getRandomPosition = (minX, maxX, minY, maxY) => {
             const x = Math.floor(Math.random() * (maxX - minX + 1)) + minX;
@@ -118,15 +117,13 @@ class Juego {
           
             if ( !ficha.getPosicionada()  && ficha.isMouseOver((e.layerX-this.canvas.offsetLeft), e.layerY)) {
 
-                console.log(ficha.getPosicionada());
                 this.configurarDrag("humanos",ficha)
             }
            
         })
 
         this.fichasAliens.forEach(ficha => {
-           
-            console.log(`radio ${ficha.radio}`)
+
             if ( !ficha.getPosicionada() && ficha.isMouseOver((e.layerX-this.canvas.offsetLeft), e.layerY)) {
                 this.configurarDrag("aliens",ficha)
             }
@@ -155,7 +152,7 @@ class Juego {
                            
                                 this.reDrawCanvas();
                                 this.redibujarFichas()
-                                console.log(this.tablero.hayGanador(this.currentPlayer,this.Modalidad,FilafichaPosicionada,columna-1));
+                                console.log("ganador?: " + this.tablero.hayGanador(this.currentPlayer,this.Modalidad,FilafichaPosicionada,columna-1));
                                 if(this.tablero.hayGanador(this.currentPlayer,this.Modalidad,FilafichaPosicionada,columna-1)){
                                     console.log("ganeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
                                 }

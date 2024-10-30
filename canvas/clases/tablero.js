@@ -25,7 +25,6 @@ class Tablero {
             }
             this.matriz.push(fila); 
         }
-        console.log(this.matriz);
         return this.matriz;
     }
 
@@ -46,8 +45,6 @@ class Tablero {
             let casillero = this.matriz[col][i];
             if(casillero.getFicha()==null){
                 casillero.setFicha(ficha);
-                console.log(`posicion en fila ${i}`)
-                console.log(this.matriz[col][i])
                 return i;
             } 
         }
@@ -67,101 +64,100 @@ class Tablero {
     hayGanador(jugador, nFichas, fila, columna) {
         const columnas = this.matrizLogica.length-1;
         const filas = this.matrizLogica[0].length-2;
+        if (!this.verificarVertical(this.jugador,this.nFichas,this.filas,this.columna)&&
+            !this.verificarHorizontal(this.jugador,this.nFichas,this.columnas,this.fila)&&
+            !this.verificarDiagonalDerechaAIzquierda(this.jugador,this.nFichas,this.filas,this.columnas)&&
+            !this.verificarDiagonalIzquierdaADercha(this.jugador,this.nFichas,this.filas,this.columnas)){
+                return false;
+        } else return true;
+    }
+
+        verificarHorizontal(jugador, nFichas, columnas , fila) {
         let acumulado = 0;
         let ganador = false;
-    
-        // Verificación horizontal
             for (let i = 0; i <= columnas; i++) {
                 let casillero = this.matrizLogica[i][fila];
-                console.log("columna " + i);
-                console.log("casillero " + casillero);
-                console.log("casillero ficha " + casillero.getFicha());
-                console.log("acumulado " + acumulado);
                 if (casillero.getFicha()!=null){
                     if (casillero.getFicha().getEquipo() !== jugador) {
                         acumulado = 0;
                     } else if (casillero.getFicha().getEquipo() == jugador && acumulado < nFichas){
                         acumulado++;
-                        console.log("acumulado " + acumulado);
                     } else if (acumulado == nFichas){
                         ganador = true;
-                        return true;
                     }
                 } else {
                     acumulado = 0;
                 }
             }
-            if (!ganador){
-                acumulado = 0;
-            }
+            return ganador;
+        }  
             
     
-        // Verificación vertical
-        for (let i = 1; i <= filas; i++) {
-            let casillero = this.matrizLogica[columna][i];
-            if (casillero.getFicha()!=null){
-                if (casillero.getFicha().getEquipo() !== jugador) {
+        verificarVertical(jugador, nFichas, filas, columna){
+        let acumulado = 0;
+        let ganador = false;
+            for (let i = 1; i <= filas; i++) {
+                let casillero = this.matrizLogica[columna][i];
+                if (casillero.getFicha()!=null){
+                    if (casillero.getFicha().getEquipo() !== jugador) {
+                        acumulado = 0;
+                    } else if (casillero.getFicha().getEquipo() == jugador && acumulado < nFichas){
+                        acumulado++
+                    } else if (acumulado == nFichas){
+                        ganador = true;
+                    }
+                } else {
                     acumulado = 0;
-                } else if (casillero.getFicha().getEquipo() == jugador && acumulado < nFichas){
-                    acumulado++
-                } else if (acumulado == nFichas){
-                    ganador = true;
-                    return true;
                 }
-            } else {
-                acumulado = 0;
             }
-        }
-        if (!ganador){
-            acumulado = 0;
+            return ganador;
         }
         
     
-        // Verificación diagonal (de izquierda a derecha)
-        for (let filaActual = 0; fila < filas - nFichas; fila++) {
-            for (let colActual = 0; col <= columnas - nFichas; col++) {
-                let casillero = this.matrizLogica[filaActual + i][colActual + i];
-                if (casillero.getFicha()!=null){
-                    if (casillero.getFicha().getEquipo() !== jugador) {
+        verificarDiagonalIzquierdaADercha(jugador, nFichas, filas , columnas){
+        let acumulado = 0;
+        let ganador = false;
+            for (let filaActual = 1; filaActual < filas - nFichas; filaActual++) {
+                for (let colActual = 0; colActual <= columnas - nFichas; colActual++) {
+                    let casillero = this.matrizLogica[filaActual + i][colActual + i];
+                    if (casillero.getFicha()!=null){
+                        if (casillero.getFicha().getEquipo() !== jugador) {
+                            acumulado = 0;
+                        } else if (casillero.getFicha().getEquipo() == jugador && acumulado < nFichas){
+                            acumulado++
+                        } else if (acumulado == nFichas){
+                            ganador = true;
+                        }
+                    } else {
                         acumulado = 0;
-                    } else if (casillero.getFicha().getEquipo() == jugador && acumulado < nFichas){
-                        acumulado++
-                    } else if (acumulado == nFichas){
-                        ganador = true;
-                        return true;
                     }
-                } else {
-                    acumulado = 0;
                 }
             }
+            return ganador;
         }
-        if (!ganador){
-            acumulado = 0;
-        }
-    
-        // Verificación diagonal (de derecha a izquierda)
-        for (let filaActual = 0; fila < filas - nFichas; fila++) {
-            for (let colActual = nFichas - 1; col < columnas; col++) {
-                let casillero = this.matrizLogica[filaActual + i][colActual - i];
-                if (casillero.getFicha()!=null){
-                    if (casillero.getFicha().getEquipo() !== jugador) {
+        
+        verificarDiagonalDerechaAIzquierda(jugador, nFichas, filas , columnas){
+        let acumulado = 0;
+        let ganador = false;
+            for (let filaActual = 1; fila < filas - nFichas; filaActual++) {
+                for (let colActual = nFichas - 1; col < columnas; colActual++) {
+                    let casillero = this.matrizLogica[filaActual + i][colActual - i];
+                    if (casillero.getFicha()!=null){
+                        if (casillero.getFicha().getEquipo() !== jugador) {
+                            acumulado = 0;
+                        } else if (casillero.getFicha().getEquipo() == jugador && acumulado < nFichas){
+                            acumulado++
+                        } else if (acumulado == nFichas){
+                            ganador = true;
+                            return true;
+                        }
+                    } else {
                         acumulado = 0;
-                    } else if (casillero.getFicha().getEquipo() == jugador && acumulado < nFichas){
-                        acumulado++
-                    } else if (acumulado == nFichas){
-                        ganador = true;
-                        return true;
                     }
-                } else {
-                    acumulado = 0;
                 }
             }
+            return ganador;
         }
-        if (!ganador){
-            acumulado = 0;
-        }
-    return ganador;
-    }
     
     
     dibujarCasillero(columna,fila, ficha){
