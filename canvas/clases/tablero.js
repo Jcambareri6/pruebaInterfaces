@@ -61,13 +61,15 @@ class Tablero {
             return layerX >= inicioX+this.widthCelda && layerX <= finX + this.widthCelda && layerY >= inicioY && layerY <= finY;
         
     }
+
     hayGanador(jugador, nFichas, fila, columna) {
         const columnas = this.matrizLogica.length-1;
-        const filas = this.matrizLogica[0].length-2;
-        if (!this.verificarVertical(this.jugador,this.nFichas,this.filas,this.columna)&&
-            !this.verificarHorizontal(this.jugador,this.nFichas,this.columnas,this.fila)&&
-            !this.verificarDiagonalDerechaAIzquierda(this.jugador,this.nFichas,this.filas,this.columnas)&&
-            !this.verificarDiagonalIzquierdaADercha(this.jugador,this.nFichas,this.filas,this.columnas)){
+        const filas = this.matrizLogica[0].length-1;
+        if (!this.verificarHorizontal(jugador,nFichas,columnas,fila)&&
+            !this.verificarVertical(jugador,nFichas,filas,columna)&&
+            !this.verificarDiagonalDerechaAIzquierda(jugador,nFichas,filas,columnas)&&
+            !this.verificarDiagonalIzquierdaADerecha(jugador,nFichas,filas,columnas)
+            ){
                 return false;
         } else return true;
     }
@@ -82,10 +84,11 @@ class Tablero {
                         acumulado = 0;
                     } else if (casillero.getFicha().getEquipo() == jugador && acumulado < nFichas){
                         acumulado++;
-                    } else if (acumulado == nFichas){
-                        ganador = true;
+                        if (acumulado == nFichas){
+                            ganador=true;
+                        }
                     }
-                } else {
+                } else if(!ganador){
                     acumulado = 0;
                 }
             }
@@ -102,63 +105,59 @@ class Tablero {
                     if (casillero.getFicha().getEquipo() !== jugador) {
                         acumulado = 0;
                     } else if (casillero.getFicha().getEquipo() == jugador && acumulado < nFichas){
-                        acumulado++
-                    } else if (acumulado == nFichas){
-                        ganador = true;
+                        acumulado++;
+                        if (acumulado == nFichas){
+                            ganador=true;
+                        }
                     }
-                } else {
+                } else if(!ganador) {
                     acumulado = 0;
                 }
             }
             return ganador;
         }
-        
-    
-        verificarDiagonalIzquierdaADercha(jugador, nFichas, filas , columnas){
-        let acumulado = 0;
-        let ganador = false;
-            for (let filaActual = 1; filaActual < filas - nFichas; filaActual++) {
+
+
+        verificarDiagonalIzquierdaADerecha(jugador, nFichas, filas, columnas) {
+            for (let filaActual = 1; filaActual <= filas - nFichas; filaActual++) {
                 for (let colActual = 0; colActual <= columnas - nFichas; colActual++) {
-                    let casillero = this.matrizLogica[filaActual + i][colActual + i];
-                    if (casillero.getFicha()!=null){
-                        if (casillero.getFicha().getEquipo() !== jugador) {
+                    let acumulado = 0;
+        
+                    for (let i = 0; i < nFichas; i++) {
+                        const casillero = this.matrizLogica[filaActual + i][colActual + i];
+                        if (casillero.getFicha() != null && casillero.getFicha().getEquipo() == jugador) {
+                            acumulado++;
+                            if (acumulado == 1) return true;
+                        } else {
                             acumulado = 0;
-                        } else if (casillero.getFicha().getEquipo() == jugador && acumulado < nFichas){
-                            acumulado++
-                        } else if (acumulado == nFichas){
-                            ganador = true;
+                            break;
                         }
-                    } else {
-                        acumulado = 0;
                     }
                 }
             }
-            return ganador;
+            return false;
         }
         
-        verificarDiagonalDerechaAIzquierda(jugador, nFichas, filas , columnas){
-        let acumulado = 0;
-        let ganador = false;
-            for (let filaActual = 1; fila < filas - nFichas; filaActual++) {
-                for (let colActual = nFichas - 1; col < columnas; colActual++) {
-                    let casillero = this.matrizLogica[filaActual + i][colActual - i];
-                    if (casillero.getFicha()!=null){
-                        if (casillero.getFicha().getEquipo() !== jugador) {
+        verificarDiagonalDerechaAIzquierda(jugador, nFichas, filas, columnas) {
+            for (let filaActual = 1; filaActual <= filas - nFichas; filaActual++) {
+                for (let colActual = nFichas - 1; colActual < columnas; colActual++) {
+                    let acumulado = 0;
+        
+                    for (let i = 0; i < nFichas; i++) {
+                        const casillero = this.matrizLogica[filaActual + i][colActual - i];
+                        if (casillero.getFicha() != null && casillero.getFicha().getEquipo() == jugador) {
+                            acumulado++;
+                            if (acumulado == 1) return true;
+                        } else {
                             acumulado = 0;
-                        } else if (casillero.getFicha().getEquipo() == jugador && acumulado < nFichas){
-                            acumulado++
-                        } else if (acumulado == nFichas){
-                            ganador = true;
-                            return true;
+                            break;
                         }
-                    } else {
-                        acumulado = 0;
                     }
                 }
             }
-            return ganador;
+            return false;
         }
-    
+        
     
     dibujarCasillero(columna,fila, ficha){
         const casillero = this.matriz[columna][fila];
