@@ -152,14 +152,19 @@ class Juego {
                            
                                 this.reDrawCanvas();
                                 this.redibujarFichas()
-                                console.log("ganador?: " + this.tablero.hayGanador(this.currentPlayer,this.Modalidad,FilafichaPosicionada,columna-1));
-                                if(this.tablero.hayGanador(this.currentPlayer,this.Modalidad,FilafichaPosicionada,columna-1)){
-                                    console.log("ganeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
-                                }
+                              
                                
                                 // this.eliminarFicha(this.currentPlayer);
+                                if(this.tablero.hayGanador( this.currentPlayer,this.Modalidad,FilafichaPosicionada,columna-1)){
+                                    if(this.selectedFicha.getIsDraggin()==false && this.selectedFicha.getSeleccionada()==false){
+                                        
+                                    }
+                                    alert(`ganador ${this.currentPlayer}`)
+                                 }
                                 this.gestionarTurnos();
                                 this.selectedFicha=null;
+                                console.log("ganador?: " + this.tablero.hayGanador(this.currentPlayer,this.Modalidad,FilafichaPosicionada,columna-1));
+                                
                             }
                            
                         }else{
