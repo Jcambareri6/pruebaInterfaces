@@ -77,10 +77,10 @@ class Juego {
 
             case 4:
 
-                return new Tablero(485.5, 70, this.ctx, 6, 8, null);
+                return new Tablero(100,200, this.ctx, 6, 8, null);
                 break;
             case 5:
-                return new Tablero(450.5, 70, this.ctx, 7, 8, null)
+                return new Tablero(400, 0, this.ctx, 7, 8, null)
             case 6:
 
                 return new Tablero(415.5, 50, this.ctx, 8, 8, null);
@@ -160,7 +160,8 @@ class Juego {
                                         
                                     }
                                     alert(`ganador ${this.currentPlayer}`)
-                                 }
+                                }
+                                //si no quedan fichas o lugares empate
                                 this.gestionarTurnos();
                                 this.selectedFicha=null;
                                 console.log("ganador?: " + this.tablero.hayGanador(this.currentPlayer,this.Modalidad,FilafichaPosicionada,columna-1));

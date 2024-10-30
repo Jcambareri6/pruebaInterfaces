@@ -21,7 +21,11 @@ class Tablero {
             let fila = [];
             for (let j = 0; j < this.tamañoTableroY; j++) {
                 let posiciones = this.calcularPosCasilleros(i, j);
-                fila.push(new casillero(posiciones.posx, posiciones.posY, this.ctx, this.widthCelda, this.heightCelda,'./img/casillero.png',i));  
+                if (j!=0){
+                    fila.push(new casillero(posiciones.posx, posiciones.posY, this.ctx, this.widthCelda, this.heightCelda,'./img/casillero.png',i));  
+                }else {
+                    fila.push(new casillero(posiciones.posx, posiciones.posY, this.ctx, this.widthCelda, this.heightCelda,'./img/Variant2.png',i));  
+                }
             }
             this.matriz.push(fila); 
         }
@@ -66,9 +70,9 @@ class Tablero {
         const columnas = this.matrizLogica.length-1;
         const filas = this.matrizLogica[0].length-1;
         if (!this.verificarHorizontal(jugador,nFichas,columnas,fila)&&
-            !this.verificarVertical(jugador,nFichas,filas,columna)&&
-            !this.verificarDiagonalDerechaAIzquierda(jugador,nFichas,filas,columnas)&&
-            !this.verificarDiagonalIzquierdaADerecha(jugador,nFichas,filas,columnas)
+            !this.verificarVertical(jugador,nFichas,filas,columna)
+            //!this.verificarDiagonalDerechaAIzquierda(jugador,nFichas,filas,columnas ,fila, columna)&&
+            //!this.verificarDiagonalIzquierdaADerecha(jugador,nFichas,filas,columnas , fila, columna)
             ){
                 return false;
         } else return true;
@@ -117,46 +121,61 @@ class Tablero {
             return ganador;
         }
 
+        // Verificación de la diagonal de derecha a izquierda (↘)
+verificarDiagonalDerechaAIzquierda(jugador, nFichas, filas, columnas , fila , columna) {
+    let acumulado = 0;
+    let ganador = false;
 
-        verificarDiagonalIzquierdaADerecha(jugador, nFichas, filas, columnas) {
-            for (let filaActual = 1; filaActual <= filas - nFichas; filaActual++) {
-                for (let colActual = 0; colActual <= columnas - nFichas; colActual++) {
-                    let acumulado = 0;
-        
-                    for (let i = 0; i < nFichas; i++) {
-                        const casillero = this.matrizLogica[filaActual + i][colActual + i];
-                        if (casillero.getFicha() != null && casillero.getFicha().getEquipo() == jugador) {
-                            acumulado++;
-                            if (acumulado == 1) return true;
-                        } else {
-                            acumulado = 0;
-                            break;
-                        }
-                    }
+    // Partimos desde la posición inicial hacia abajo y la derecha
+    for (let i = 0; i <= columnas && i <= filas; i++) {
+        let casillero = this.matrizLogica[columna + i][fila + i];
+        if (!casillero) break; // Si se sale del límite, terminamos el bucle
+
+        if (casillero.getFicha() != null) {
+            if (casillero.getFicha().getEquipo() !== jugador) {
+                acumulado = 0;
+            } else if (casillero.getFicha().getEquipo() === jugador && acumulado < nFichas) {
+                acumulado++;
+                if (acumulado === nFichas) {
+                    ganador = true;
+                    break;
                 }
             }
-            return false;
+        } else if (!ganador) {
+            acumulado = 0;
         }
-        
-        verificarDiagonalDerechaAIzquierda(jugador, nFichas, filas, columnas) {
-            for (let filaActual = 1; filaActual <= filas - nFichas; filaActual++) {
-                for (let colActual = nFichas - 1; colActual < columnas; colActual++) {
-                    let acumulado = 0;
-        
-                    for (let i = 0; i < nFichas; i++) {
-                        const casillero = this.matrizLogica[filaActual + i][colActual - i];
-                        if (casillero.getFicha() != null && casillero.getFicha().getEquipo() == jugador) {
-                            acumulado++;
-                            if (acumulado == 1) return true;
-                        } else {
-                            acumulado = 0;
-                            break;
-                        }
-                    }
+    }
+    return ganador;
+}
+
+// Verificación de la diagonal de izquierda a derecha (↙)
+verificarDiagonalIzquierdaADerecha(jugador, nFichas, filas, columnas , fila , columna) {
+    let acumulado = 0;
+    let ganador = false;
+
+    // Partimos desde la posición inicial hacia abajo y la izquierda
+    for (let i = 0; i <= columnas && i <= filas; i++) {
+        let casillero = this.matrizLogica[columna - i][fila + i];
+        if (!casillero) break; // Si se sale del límite, terminamos el bucle
+
+        if (casillero.getFicha() != null) {
+            if (casillero.getFicha().getEquipo() !== jugador) {
+                acumulado = 0;
+            } else if (casillero.getFicha().getEquipo() === jugador && acumulado < nFichas) {
+                acumulado++;
+                if (acumulado === nFichas) {
+                    ganador = true;
+                    break;
                 }
             }
-            return false;
+        } else if (!ganador) {
+            acumulado = 0;
         }
+    }
+    return ganador;
+}
+
+
         
     
     dibujarCasillero(columna,fila, ficha){

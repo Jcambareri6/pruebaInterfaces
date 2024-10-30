@@ -18,7 +18,7 @@ class AdminJuego{
 
     }
     iniciarBtones(){
-        const canvasWidth = 1391;
+        const canvasWidth = 1227;
         const buttonWidth = 250;
         const buttonSpacing = (canvasWidth - (buttonWidth * 3)) / 4; // Espacio entre botones y los márgenes
     
@@ -26,7 +26,7 @@ class AdminJuego{
         let posX4 = buttonSpacing;
         let posX5 = posX4 + buttonWidth + buttonSpacing;
         let posX6 = posX5 + buttonWidth + buttonSpacing;
-        let posY = 100; // Altura en la que los botones se dibujarán
+        let posY = (this.canvas.height/2)+110; // Altura en la que los botones se dibujarán
     
         // Crear y agregar los botones al array
         let btnModalidad4 = new btnModalidad(this.ctx, posX4, posY, 4);
