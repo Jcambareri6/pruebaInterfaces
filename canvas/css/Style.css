@@ -1,12 +1,13 @@
 html,
 body {
-  overflow-x: hidden;
+    overflow-x: hidden;
 }
 
-.contenedorJuego{
+.contenedorJuego {
     display: flex;
 }
-.btonesModalidad{
+
+.btonesModalidad {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -15,42 +16,69 @@ body {
     position: absolute;
     top: 23%;
     margin-left: 43%;
-
-   
-    
 }
-.btonesModalidad>.btnModalidad{
+
+.btonesModalidad>.btnModalidad {
     color: white;
     width: 250px;
     height: 50px;
     border-radius: 10px;
     border: none;
-    background-color:#163B84 ;
+    background-color: #163B84;
     cursor: pointer;
     font-family: 'Roboto Mono', monospace;
-    
-   
 }
 
-.fichaHumanos,.fichaAliens{
+.fichaHumanos,
+.fichaAliens {
     display: flex;
     gap: 40px;
     position: absolute;
-    top:40%;
+    top: 40%;
 }
-.fichaAliens{
+
+.fichaAliens {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     right: 10%;
 }
-.fichaHumanos{
+
+.fichaHumanos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-left: 195px;
 
 }
-.fichaHumanos>button,.fichaAliens>button{
- 
+
+.fichaHumanos>button,
+.fichaAliens>button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 100%;
     height: 50px;
-    width: 50px; 
+    width: 50px;
     background-color: #163B84;
 }
 
+.fichaHumanos img,
+.fichaAliens img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
 
+.fichaHumanos>.H1 {
+    background-color: #40C0E7;
+}
+
+.fichaHumanos>.H2 {
+    background-color: #b33373;
+}
+
+.fichaHumanos>.H3 {
+    background-color: #4C008A;
+}
