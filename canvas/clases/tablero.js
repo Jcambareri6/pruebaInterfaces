@@ -70,9 +70,8 @@ class Tablero {
         const columnas = this.matrizLogica.length-1;
         const filas = this.matrizLogica[0].length-1;
         if (!this.verificarHorizontal(jugador,nFichas,columnas,fila)&&
-            !this.verificarVertical(jugador,nFichas,filas,columna)
-            //!this.verificarDiagonalDerechaAIzquierda(jugador,nFichas,filas,columnas ,fila, columna)&&
-            //!this.verificarDiagonalIzquierdaADerecha(jugador,nFichas,filas,columnas , fila, columna)
+            !this.verificarVertical(jugador,nFichas,filas,columna)&&
+            !this.verificarDiagonales(jugador,nFichas,filas,columnas ,fila, columna)
             ){
                 return false;
         } else return true;
@@ -121,73 +120,52 @@ class Tablero {
             return ganador;
         }
 
-        // Verificación de la diagonal de derecha a izquierda (↘)
-verificarDiagonalDerechaAIzquierda(jugador, nFichas, filas, columnas , fila , columna) {
-    let acumulado = 0;
-    let ganador = false;
+        verificarDiagonales(jugador, nFichas,filas,columnas, fila, columna) {
 
-    // Partimos desde la posición inicial hacia abajo y la derecha
-    for (let i = 0; i <= columnas && i <= filas; i++) {
-        let casillero = this.matrizLogica[columna + i][fila + i];
-        if (!casillero) break; // Si se sale del límite, terminamos el bucle
-
-        if (casillero.getFicha() != null) {
-            if (casillero.getFicha().getEquipo() !== jugador) {
-                acumulado = 0;
-            } else if (casillero.getFicha().getEquipo() === jugador && acumulado < nFichas) {
-                acumulado++;
-                if (acumulado === nFichas) {
-                    ganador = true;
-                    break;
-                }
-            }
-        } else if (!ganador) {
-            acumulado = 0;
-        }
-    }
-    return ganador;
-}
-
-// Verificación de la diagonal de izquierda a derecha (↙)
-verificarDiagonalIzquierdaADerecha(jugador, nFichas, filas, columnas , fila , columna) {
-    let acumulado = 0;
-    let ganador = false;
-
-    // Partimos desde la posición inicial hacia abajo y la izquierda
-    for (let i = 0; i <= columnas && i <= filas; i++) {
-        let casillero = this.matrizLogica[columna - i][fila + i];
-        if (!casillero) break; // Si se sale del límite, terminamos el bucle
-
-        if (casillero.getFicha() != null) {
-            if (casillero.getFicha().getEquipo() !== jugador) {
-                acumulado = 0;
-            } else if (casillero.getFicha().getEquipo() === jugador && acumulado < nFichas) {
-                acumulado++;
-                if (acumulado === nFichas) {
-                    ganador = true;
-                    break;
-                }
-            }
-        } else if (!ganador) {
-            acumulado = 0;
-        }
-    }
-    return ganador;
-}
-
-
+            // Función auxiliar para contar fichas consecutivas en una dirección
+            const contarFichasEnDireccion = (deltaFila, deltaColumna) => {
+                let acumulado = 0;
+                let nuevaFila = fila;
+                let nuevaColumna = columna;
         
-    
-    dibujarCasillero(columna,fila, ficha){
-        const casillero = this.matriz[columna][fila];
-    
+                // Recorre en la dirección especificada (deltaFila, deltaColumna)
+                while (
+                    nuevaFila >= 0 && nuevaFila <= filas &&
+                    nuevaColumna >= 0 && nuevaColumna <= columnas
+                ) {
+                    const casillero = this.matrizLogica[nuevaColumna][nuevaFila];
+                    if (!casillero || casillero.getFicha()?.getEquipo() !== jugador) break;
         
-        const fichaPosX = casillero.posX + (this.widthCelda / 2);
-        const fichaPosY = casillero.posY + (this.heightCelda / 2);
-
-        ficha.setPosX(fichaPosX);
-        ficha.setPosY(fichaPosY);
-        ficha.draw();
-      
-    }
+                    acumulado++;
+                    nuevaFila += deltaFila;
+                    nuevaColumna += deltaColumna;
+                }
+                return acumulado;
+            };
+        
+            // Verificar la diagonal de derecha a izquierda (↘ y ↖)
+            let totalFichasDiagonal1 = 
+                contarFichasEnDireccion(1, 1) +  // Dirección ↘
+                contarFichasEnDireccion(-1, -1) - 1; // Dirección ↖ (restamos 1 para no contar la ficha inicial dos veces)
+        
+            // Verificar la diagonal de izquierda a derecha (↙ y ↗)
+            let totalFichasDiagonal2 = 
+                contarFichasEnDireccion(1, -1) +  // Dirección ↙
+                contarFichasEnDireccion(-1, 1) - 1; // Dirección ↗ (restamos 1 para no contar la ficha inicial dos veces)
+        
+            return totalFichasDiagonal1 >= nFichas || totalFichasDiagonal2 >= nFichas;
+        }
+        
+        
+            dibujarCasillero(columna,fila, ficha){
+                const casillero = this.matriz[columna][fila];
+            
+                
+                const fichaPosX = casillero.posX + (this.widthCelda / 2);
+                const fichaPosY = casillero.posY + (this.heightCelda / 2);
+        
+                ficha.setPosX(fichaPosX);
+                ficha.setPosY(fichaPosY);
+                ficha.draw();
+            }
 }
