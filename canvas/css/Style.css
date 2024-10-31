@@ -1,4 +1,56 @@
-#canvasP{
-    margin-left: 62px;
-    margin-right: 62px;
+html,
+body {
+  overflow-x: hidden;
 }
+
+.contenedorJuego{
+    display: flex;
+}
+.btonesModalidad{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    position: absolute;
+    top: 23%;
+    margin-left: 43%;
+
+   
+    
+}
+.btonesModalidad>.btnModalidad{
+    color: white;
+    width: 250px;
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    background-color:#163B84 ;
+    cursor: pointer;
+    font-family: 'Roboto Mono', monospace;
+    
+   
+}
+
+.fichaHumanos,.fichaAliens{
+    display: flex;
+    gap: 40px;
+    position: absolute;
+    top:40%;
+}
+.fichaAliens{
+    right: 10%;
+}
+.fichaHumanos{
+    margin-left: 195px;
+
+}
+.fichaHumanos>button,.fichaAliens>button{
+ 
+    border-radius: 100%;
+    height: 50px;
+    width: 50px; 
+    background-color: #163B84;
+}
+
+

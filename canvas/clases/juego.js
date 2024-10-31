@@ -45,28 +45,39 @@ class Juego {
         }
       
     }
-    generarFichas(cantFichas){
-        const posYMin = 100;
-        const posYMax = 500;
-          // Función para generar posiciones aleatorias en un rango específico
-          const getRandomPosition = (minX, maxX, minY, maxY) => {
+    generarFichas(cantFichas) {
+        const posYMin = 100;           // Inicio de la altura del tablero
+        const posYMax = 500;          // Fin de la altura del tablero
+    
+        // Anchos y posiciones para cada modalidad de tablero
+        const tableroConfig = {
+            4: { posX: 601, ancho: 360, margen: 220 }, // 4 en línea
+            5: { posX: 571, ancho: 420, margen: 250 }, // 5 en línea
+            6: { posX: 541, ancho: 480, margen: 280 }  // 6 en línea
+        };
+    
+        // Obtiene la configuración del tablero actual
+        const tablero = tableroConfig[this.Modalidad];
+    
+        // Función para generar posiciones aleatorias en un rango específico
+        const getRandomPosition = (minX, maxX, minY, maxY) => {
             const x = Math.floor(Math.random() * (maxX - minX + 1)) + minX;
             const y = Math.floor(Math.random() * (maxY - minY + 1)) + minY;
             return { x, y };
         };
     
-        // Generar fichas para Aliens
+        // Generar fichas para Aliens (derecha del tablero)
         for (let i = 0; i < cantFichas; i++) {
-            const alienPos = getRandomPosition(this.canvas.width - 250, this.canvas.width - 100, posYMin, posYMax);
-            let fichaAlien = new ficha(alienPos.x, alienPos.y, this.ctx, 25, './img/ficha1.png','aliens');
+            const alienPos = getRandomPosition(tablero.posX + tablero.ancho + tablero.margen, tablero.posX + tablero.ancho + 100, posYMin, posYMax);
+            let fichaAlien = new ficha(alienPos.x, alienPos.y, this.ctx, 25, './img/ficha1.png', 'aliens');
             fichaAlien.setPosicionInicial(alienPos.x, alienPos.y);
             this.fichasAliens.push(fichaAlien);
         }
     
-        // Generar fichas para Humanos
-        for (let i = 0; i <cantFichas; i++) {
-            const humanoPos = getRandomPosition(100, 250, posYMin, posYMax);
-            let fichaHumano = new ficha(humanoPos.x, humanoPos.y, this.ctx, 25, './img/ficha_Humano.png','humanos');
+        // Generar fichas para Humanos (izquierda del tablero)
+        for (let i = 0; i < cantFichas; i++) {
+            const humanoPos = getRandomPosition(tablero.posX - 100, tablero.posX - tablero.margen, posYMin, posYMax);
+            let fichaHumano = new ficha(humanoPos.x, humanoPos.y, this.ctx, 25, './img/ficha_Humano.png', 'humanos');
             fichaHumano.setPosicionInicial(humanoPos.x, humanoPos.y);
             this.fichasHumanos.push(fichaHumano);
         }
@@ -76,14 +87,15 @@ class Juego {
         switch (Modalidad) {
 
             case 4:
-
-                return new Tablero(100,200, this.ctx, 6, 8, null);
+                let tableroX=6;
+                let tableroY =8;
+                return new Tablero(601,90, this.ctx, 6, 8, null);
                 break;
             case 5:
-                return new Tablero(400, 0, this.ctx, 7, 8, null)
+                return new Tablero(571, 90, this.ctx, 7, 8, null)
             case 6:
 
-                return new Tablero(415.5, 50, this.ctx, 8, 8, null);
+                return new Tablero(541, 90, this.ctx, 8, 8, null);
 
                 break;
 

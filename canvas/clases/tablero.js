@@ -9,8 +9,8 @@ class Tablero {
         this.tamañoTableroY=tamañoTableroY;
         
         this.Winner=Winner;
-        this.heightCelda=70;
-        this.widthCelda=70;
+        this.heightCelda=60;
+        this.widthCelda=60;
         this.matrizLogica = this.GenerarMatriz();
         this.Winner=null;
     }
