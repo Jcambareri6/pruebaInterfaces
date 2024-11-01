@@ -9,6 +9,7 @@ class ficha  {
         this.seleccionada=false;
         this.posicionada=false;
         this.isDraggin= false;
+        
         this.img = new Image();
         this.src= src
         this.equipo = equipo
@@ -18,7 +19,7 @@ class ficha  {
         this.img.onload = () => {
             this.draw(); 
         };
-    
+        console.log("instanciado")
       
     }
     

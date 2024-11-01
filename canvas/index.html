@@ -6,62 +6,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./css/Style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
+    <canvas id="canvasP" height="600" width="1562">
+
+    </canvas>
     <div class="contenedor">
 
 
-<<<<<<< HEAD
-    </canvas>
-    <!-- <div class="contenedorJuego">
-        <div class="fichaAliens">
-            <button>ficha humano1</button>
-            <button>ficha humano 2</button>
-            <button>ficha humano 3</button>
-        </div>
-        <div class="btonesModalidad">
-            <button class="btnModalidad">4 en Linea</button>
-            <button  class="btnModalidad">5 en linea</button>
-            <button  class="btnModalidad">6 en linea </button>
-            <button  class="btnModalidad"> 7 en linea </button>
-        </div>
-        <div class="fichaHumanos">
-            <button>ficha humano1</button>
-            <button>ficha humano 2</button>
-            <button>ficha humano 3</button>
-=======
-        <canvas id="canvasP" height="600" width="1562">
-
-        </canvas>
+       
         <div class="contenedorJuego">
-            <div class="fichaAliens">
-                <button><img src="./img/alien1.jpg" alt=""></button>
-                <button><img src="./img/alien2.jpg" alt=""></button>
-                <button><img src="img/alien3.webp" alt=""></button>
-            </div>
+
+            <div class="form-containerPlayer">
+                <h2>Jugador 1</h2>
+                <form class="formPlayer">
+                   <p>nombre del jugador 1</p>
+                  <input type="text" placeholder="nombre" class="input-nombre" required>
+                  <div class="containerFichas">
+                    <p>Seleccione su ficha</p>
+                    <div class="ficha-selection">
+                      <img class="fichaAlien" src="img/fichaAliens1.png" alt="Ficha 1">
+                      <img class="fichaAlien"src="img/fichaAliens2.png" alt="Ficha 2">
+                      <img class="fichaAlien"src="img/fichasAliens3.png" alt="Ficha 3">
+                    </div>
+                  </div>
+                 
+                 
+               
+                </form>
+              </div>
             <div class="btonesModalidad">
-                <button class="btnModalidad">4 en Linea</button>
-                <button class="btnModalidad">5 en linea</button>
-                <button class="btnModalidad">6 en linea </button>
-                <button class="btnModalidad"> 7 en linea </button>
+                <button class="btnModalidad" modalidad="4">4 en Linea</button>
+                <button class="btnModalidad" modalidad="5">5 en linea</button>
+                <button class="btnModalidad" modalidad="6">6 en linea </button>
+                <button class="btnModalidad" modalidad="7"> 7 en linea </button>
             </div>
-            <div class="fichaHumanos">
-                <button class="H1"><img src="./img/Humanoide1.png" alt=""></button>
-                <button class="H2"><img src="./img/Humanoides2.png" alt=""></button>
-                <button class="H3"><img src="img/Humanoide3.png" alt=""></button>
-            </div>
->>>>>>> 7f98f072e88f1aeae3f4cc6f9b27996ab83f02ed
+            
+            <div class="form-containerPlayer  player2">
+                <h2>Jugador 2</h2>
+                <form class="formPlayer">
+                   <p>nombre del jugador 2</p>
+                  <input type="text" placeholder="nombre" class="input-nombre" required>
+                  <div class="containerFichas">
+                    <p>Seleccione su ficha</p>
+                    <div class="ficha-selection">
+                      <img class="fichaHumano" src="img/ficha_Humano.png" alt="Ficha 1" ficha="humano1">
+                      <img class="fichaHumano" src="img/fichaHumanoide2.png" alt="Ficha 2" ficha="humano2">
+                      <img class="fichaHumano" src="img/fichaHumanoide3.png" alt="Ficha 3" ficha="humano3">
+                    </div>
+                  </div>
+               
+                  
+                 
+             
+               
+                </form>
+              </div>
         </div>
 
 
     </div>
-<<<<<<< HEAD
-   
-
-</div>   -->
-=======
->>>>>>> 7f98f072e88f1aeae3f4cc6f9b27996ab83f02ed
 </body>
 
 

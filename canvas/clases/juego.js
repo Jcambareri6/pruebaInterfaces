@@ -1,18 +1,21 @@
 class Juego {
-    constructor(Modalidad,canvas,ctx) {
+    constructor(Modalidad,canvas, fichaElegidaAliens,fichaElegidaHumanos) {
         this.canvas=canvas;
-        this.ctx=ctx;
+        this.ctx= canvas.getContext('2d');
      
 
         this.Modalidad = Modalidad;
-
+        this.fichaElegidaAliens=fichaElegidaAliens;
+        this.fichaElegidaHumanos=fichaElegidaHumanos;
+        console.log(`fichas humanos ${this.fichaElegidaHumanos}`)
+        console.log(`fichas aliens ${this.fichaElegidaAliens}`)
         this.currentPlayer = "humanos";
         this.selectedFicha = null;
-        this.tablero = this.setTablero(Modalidad);
+        this.tablero = this.setTablero(this.Modalidad);
         this.fichasAliens = [];
         this.fichasHumanos = [];
+        
         this.iniciarFichas()
-   
        
         this.canvas.addEventListener('mousedown', (e) => this.MouseDown(e));
         this.canvas.addEventListener('mouseup', (e) => this.MouseUp(e));
@@ -21,19 +24,21 @@ class Juego {
     }
   
     iniciarFichas() {
+        
         let tamañoX=0;
         let tamañoY=7;
         switch (this.Modalidad) {
           
-            case 4:
+            case '4':
                 tamañoX = 6;
+            
                 this.generarFichas((tamañoX*tamañoY)/2)
                 break;
-            case 5:
+            case '5':
                 tamañoX=7;
                  
                 this.generarFichas((tamañoX*tamañoY)/2)
-            case 6:
+            case '6':
 
                  tamañoX=8;
                   
@@ -46,6 +51,7 @@ class Juego {
       
     }
     generarFichas(cantFichas) {
+        
         const posYMin = 100;           // Inicio de la altura del tablero
         const posYMax = 500;          // Fin de la altura del tablero
     
@@ -69,7 +75,8 @@ class Juego {
         // Generar fichas para Aliens (derecha del tablero)
         for (let i = 0; i < cantFichas; i++) {
             const alienPos = getRandomPosition(tablero.posX + tablero.ancho + tablero.margen, tablero.posX + tablero.ancho + 100, posYMin, posYMax);
-            let fichaAlien = new ficha(alienPos.x, alienPos.y, this.ctx, 25, './img/ficha1.png', 'aliens');
+   
+            let fichaAlien = new ficha(alienPos.x, alienPos.y, this.ctx, 25, this.fichaElegidaAliens, 'aliens');
             fichaAlien.setPosicionInicial(alienPos.x, alienPos.y);
             this.fichasAliens.push(fichaAlien);
         }
@@ -77,35 +84,38 @@ class Juego {
         // Generar fichas para Humanos (izquierda del tablero)
         for (let i = 0; i < cantFichas; i++) {
             const humanoPos = getRandomPosition(tablero.posX - 100, tablero.posX - tablero.margen, posYMin, posYMax);
-            let fichaHumano = new ficha(humanoPos.x, humanoPos.y, this.ctx, 25, './img/ficha_Humano.png', 'humanos');
+            
+            let fichaHumano = new ficha(humanoPos.x, humanoPos.y, this.ctx, 25, this.fichaElegidaHumanos, 'humanos');
             fichaHumano.setPosicionInicial(humanoPos.x, humanoPos.y);
             this.fichasHumanos.push(fichaHumano);
         }
     }
     setTablero(Modalidad) {
-        
+      // Use Modalidad, not this.Modalidad
+        let tablero;
+    
         switch (Modalidad) {
-
-            case 4:
-                let tableroX=6;
-                let tableroY =8;
-                return new Tablero(601,90, this.ctx, 6, 8, null);
+            case "4":
+                tablero = new Tablero(601, 90, this.ctx, 6, 8, null);
+                break; // Use break to prevent fallthrough
+            case "5":
+                tablero = new Tablero(571, 90, this.ctx, 7, 8, null); // Add 'new' keyword
                 break;
-            case 5:
-                return new Tablero(571, 90, this.ctx, 7, 8, null)
-            case 6:
-
-                return new Tablero(541, 90, this.ctx, 8, 8, null);
-
+            case "6":
+                tablero = new Tablero(541, 90, this.ctx, 8, 8, null);
                 break;
-
-
+            default:
+                console.error("Modalidad desconocida");
+                tablero = new Tablero(601, 90, this.ctx, 6, 8, null); // Fallback case
         }
-
+    
+        console.log(tablero);
+        return tablero;
     }
     play() {
-     
-        this.tablero.draw();
+        
+        this.tablero.drawTablero();
+        // this.iniciarFichas()
       
     }
     gestionarTurnos() {

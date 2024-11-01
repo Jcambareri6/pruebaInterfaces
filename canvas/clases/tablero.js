@@ -32,7 +32,8 @@ class Tablero {
         return this.matriz;
     }
 
-    draw() {
+    drawTablero() {
+
         this.matriz.forEach(fila => {
             fila.forEach(casillero => casillero.draw());
         });
