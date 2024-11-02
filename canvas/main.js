@@ -18,7 +18,10 @@ let fichaAliensElegida=undefined;
  console.log(containerPlayer2);
  console.log(nameJugadorAliens);
  console.log(nameJugadorHumano);
-
+let btn_reinicar = document.querySelector(".btn_reinicar");
+btn_reinicar.addEventListener('click',reinicarJuego());
+let menu = document.querySelector(".menu");
+menu.addEventListener('click',volverMenu());
 
 fichasHumanos.forEach(btn => {
   btn.addEventListener('click', () => {
@@ -125,9 +128,22 @@ function dibujarTablero(){
 // let juego1 = new Juego(6, canvas, ctx);
 // juego1.play();
   function iniciarJuego(){
-    contenedorJuego.classList.add('none')
+    contenedorJuego.classList.add('none');
+    btn_reinicar.classList.add('block');
+    menu.classList.add('block');
  }
-
+  function reinicarJuego() {
+    borrarTablero();
+    dibujarTablero();
+    iniciarJuego();
+ }
+  function volverMenu(){
+    borrarTablero();
+    contenedorJuego.classList.add('block');
+    btn_reinicar.classList.add('none');
+    menu.classList.add('none');
+  }
+ 
 
 
 
