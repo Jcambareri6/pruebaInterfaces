@@ -57,8 +57,8 @@ class Tablero {
     }
     dropZone(layerX, layerY) {
 
-        const inicioX = this.posX;
-        const finX = this.posX + this.tamañoTableroX * this.widthCelda;
+        const inicioX = this.posX - this.widthCelda;
+        const finX = this.posX + this.tamañoTableroX * this.widthCelda - this.widthCelda;
         const inicioY = this.posY;
         const finY = this.posY + this.heightCelda;
 
