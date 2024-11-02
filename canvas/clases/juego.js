@@ -162,14 +162,14 @@ class Juego {
                     if(this.tablero.dropZone(e.layerX,e.layerY)){
                      
                         const columna = Math.floor((e.layerX - this.tablero.posX) / this.tablero.widthCelda);
-                        let FilafichaPosicionada= this.tablero.posicionarFicha(columna,this.selectedFicha);
+                        let FilafichaPosicionada= this.tablero.posicionarFicha(columna-1,this.selectedFicha);
                         if (FilafichaPosicionada!= -1 ){
                             if(this.selectedFicha.getIsDraggin()==true && this.selectedFicha.getSeleccionada()==true){
                              
                                 this.selectedFicha.setPosicionada(true);
                              
                                
-                                this.tablero.dibujarCasillero(columna,FilafichaPosicionada, this.selectedFicha);
+                                this.tablero.dibujarCasillero(columna-1,FilafichaPosicionada, this.selectedFicha);
                                 this.selectedFicha.setIsDraggin(false);
                            
                                 this.reDrawCanvas();
