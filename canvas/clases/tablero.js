@@ -17,14 +17,14 @@ class Tablero {
 
     GenerarMatriz() {
         this.matriz = [];
-        for (let i = 0; i < this.tamañoTableroX; i++) {
+        for (let i = 1; i <this.tamañoTableroX; i++) {
             let fila = [];
             for (let j = 0; j < this.tamañoTableroY; j++) {
                 let posiciones = this.calcularPosCasilleros(i, j);
                 if (j != 0) {
                     fila.push(new casillero(posiciones.posx, posiciones.posY, this.ctx, this.widthCelda, this.heightCelda, './img/casillero1.png', i));
                 } else {
-                    fila.push(new casillero(posiciones.posx, posiciones.posY, this.ctx, this.widthCelda, this.heightCelda, './img/Variant2.png', i));
+                    fila.push(new casillero(posiciones.posx, posiciones.posY, this.ctx, this.widthCelda, this.heightCelda, './img/casillero2.webp', i));
                 }
             }
             this.matriz.push(fila);
@@ -46,7 +46,9 @@ class Tablero {
         };
     }
     posicionarFicha(col, ficha) {
-        for (let i = this.tamañoTableroY - 1; i >= 0; i--) {
+        console.log(`columna ${col} `)
+        for (let i = this.tamañoTableroY - 1; i > 0; i--) {
+            
             let casillero = this.matriz[col][i];
             if (casillero.getFicha() == null) {
                 casillero.setFicha(ficha);
