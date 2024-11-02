@@ -161,7 +161,8 @@ class Juego {
                 if(this.selectedFicha!=null){
                     if(this.tablero.dropZone(e.layerX,e.layerY)){
                      
-                        const columna = Math.floor((e.layerX - this.tablero.posX) / this.tablero.widthCelda);
+                        const columna = Math.floor((e.layerX-this.canvas.offsetLeft - this.tablero.posX) / this.tablero.widthCelda);
+                        console.log(`${columna-1}`)
                         let FilafichaPosicionada= this.tablero.posicionarFicha(columna-1,this.selectedFicha);
                         if (FilafichaPosicionada!= -1 ){
                             if(this.selectedFicha.getIsDraggin()==true && this.selectedFicha.getSeleccionada()==true){
