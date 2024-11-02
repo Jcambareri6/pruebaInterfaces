@@ -135,3 +135,32 @@ body {
 .none{
     display: none;
 }
+.namePlayer1,.namePlayer2{
+    height: 54px;
+    width: 320px;
+    border-radius: 10px;
+    background-color:rgba(14, 10, 10, 0.7);
+    margin-top: 10px;
+    position: absolute;
+    display: flex;
+    top: 2%;
+    align-items:center ;
+    gap: 10px;
+    
+}
+
+.namePlayer1{
+    margin-left: 15px;
+}
+.namePlayer2{
+    right: 2%;
+}
+.namePlayer1>img,.namePlayer2>img{
+    height: 50px;
+    width: 50px;
+}
+.namePlayer1>h3,.namePlayer2>h3{
+    font-size: 30px;
+    font-family:'Roboto Mono' ;
+    color: #FFFFFF;
+}

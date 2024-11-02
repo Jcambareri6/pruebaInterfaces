@@ -3,6 +3,7 @@ let ctx = canvas.getContext('2d');
 
 dibujarTablero();
 ctx.beginPath();
+
 let fichaHumanoElegida = undefined;
 let fichaAliensElegida=undefined;
  let fichasHumanos = document.querySelectorAll(".fichaHumano");
@@ -10,6 +11,14 @@ let fichaAliensElegida=undefined;
  let botonAnteriorHumanos = null;
  let btnAliensAnterior = null;
  let contenedorJuego= document.querySelector('.contenedorJuego');
+ let nameJugadorHumano= document.querySelector('#inputHumanos');
+ let nameJugadorAliens=document.querySelector('#inputAliens')
+ let containerPlayer1 = document.querySelector('#nombreJugador1')
+ let containerPlayer2= document.querySelector('#nombreJugador2')
+ console.log(containerPlayer2);
+ console.log(nameJugadorAliens);
+ console.log(nameJugadorHumano);
+
 
 fichasHumanos.forEach(btn => {
   btn.addEventListener('click', () => {
@@ -22,7 +31,7 @@ fichasHumanos.forEach(btn => {
     let ruta = btn.src
      let explodeSrc = ruta.split("/")
      console.log(explodeSrc[4])
-    fichaHumanoElegida= `/${explodeSrc[4]}/${explodeSrc[5]}`
+    fichaHumanoElegida= `${explodeSrc[4]}/${explodeSrc[5]}`
     console.log(fichaHumanoElegida);
 
     btn.classList.add('elegida');
@@ -42,7 +51,7 @@ fichasAliens.forEach(btn => {
           let ruta = btn.src
          let explodeSrc = ruta.split("/")
          console.log(explodeSrc[4])
-         fichaAliensElegida= `/${explodeSrc[4]}/${explodeSrc[5]}`
+         fichaAliensElegida= `${explodeSrc[4]}/${explodeSrc[5]}`
   
 
     btn.classList.add('elegida');
@@ -54,12 +63,32 @@ fichasAliens.forEach(btn => {
     boton.addEventListener('click', () => {
        
         const modalidad = boton.getAttribute('modalidad');
-        console.log(typeof(fichaAliensElegida));
-      
-        const juego = new Juego(modalidad,canvas,fichaAliensElegida,fichaHumanoElegida);
+        
+        if(fichaAliensElegida ==undefined ){
+            fichaAliensElegida='img/fichaAliens1.png'
+            
+        }
+        if(fichaHumanoElegida==undefined){
+            fichaHumanoElegida='img/fichaHumanoide3.png'
+        }
+        if (nameJugadorAliens.value === "" && nameJugadorHumano.value === "") {
+            nameJugadorAliens.value= "pepo";
+            nameJugadorHumano.value= "rey";
+        }
+        containerPlayer1.classList.remove('none')
+        containerPlayer2.classList.remove('none')
+        containerPlayer1.classList.add('namePlayer1')
+        containerPlayer2.classList.add('namePlayer2')
+
+        containerPlayer1.innerHTML=generarHtml(fichaHumanoElegida,nameJugadorHumano.value);
+        containerPlayer2.innerHTML=generarHtml(fichaAliensElegida,nameJugadorAliens.value)
+        console.log(generarHtml(fichaAliensElegida,nameJugadorAliens.value))
+
         borrarTablero();
         dibujarTablero();
         iniciarJuego();
+        const juego = new Juego(modalidad,canvas,fichaAliensElegida,fichaHumanoElegida);
+       
         juego.play();
         
 
@@ -71,13 +100,22 @@ fichasAliens.forEach(btn => {
     
     });
 });
+function generarHtml(ficha,name){
+    let html = `
+      <img  src="${ficha}" alt="FichaPlayer">
+      <h3>${name}</h3>
+    `
+ 
+    return html
+}
+
  function borrarTablero(){
  
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 function dibujarTablero(){
 
-    ctx.fillStyle = "#FF0000";
+
     let img = new Image();
     img.src = "./img/fondoCanvasPresentacion.png"
     img.onload = function () {

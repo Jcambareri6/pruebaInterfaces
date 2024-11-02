@@ -22,20 +22,20 @@
        
         <div class="contenedorJuego">
 
-            <div class="form-containerPlayer">
-                <h2>Jugador 1</h2>
+            
+            <div class="form-containerPlayer  ">
+                <h2>Jugador 2</h2>
                 <form class="formPlayer">
-                   <p>nombre del jugador 1</p>
-                  <input type="text" placeholder="nombre" class="input-nombre" required>
+                   <p>nombre del jugador 2</p>
+                  <input type="text" placeholder="nombre" id="inputHumanos" class="input-nombre" required>
                   <div class="containerFichas">
                     <p>Seleccione su ficha</p>
                     <div class="ficha-selection">
-                      <img class="fichaAlien" src="img/fichaAliens1.png" alt="Ficha 1">
-                      <img class="fichaAlien"src="img/fichaAliens2.png" alt="Ficha 2">
-                      <img class="fichaAlien"src="img/fichasAliens3.png" alt="Ficha 3">
+                      <img class="fichaHumano" src="img/ficha_Humano.png" alt="Ficha 1" ficha="humano1">
+                      <img class="fichaHumano" src="img/fichaHumanoide2.png" alt="Ficha 2" ficha="humano2">
+                      <img class="fichaHumano" src="img/fichaHumanoide3.png" alt="Ficha 3" ficha="humano3">
                     </div>
                   </div>
-                 
                  
                
                 </form>
@@ -46,29 +46,24 @@
                 <button class="btnModalidad" modalidad="6">6 en linea </button>
                 <button class="btnModalidad" modalidad="7"> 7 en linea </button>
             </div>
-            
-            <div class="form-containerPlayer  player2">
-                <h2>Jugador 2</h2>
+            <div class="form-containerPlayer player2">
+                <h2>Jugador 1</h2>
                 <form class="formPlayer">
-                   <p>nombre del jugador 2</p>
-                  <input type="text" placeholder="nombre" class="input-nombre" required>
+                   <p>nombre del jugador 1</p>
+                  <input type="text" placeholder="nombre"  id="inputAliens"  class="input-nombre" required>
                   <div class="containerFichas">
                     <p>Seleccione su ficha</p>
                     <div class="ficha-selection">
-                      <img class="fichaHumano" src="img/ficha_Humano.png" alt="Ficha 1" ficha="humano1">
-                      <img class="fichaHumano" src="img/fichaHumanoide2.png" alt="Ficha 2" ficha="humano2">
-                      <img class="fichaHumano" src="img/fichaHumanoide3.png" alt="Ficha 3" ficha="humano3">
+                      <img class="fichaAlien" src="img/fichaAliens1.png" alt="Ficha 1">
+                      <img class="fichaAlien"src="img/fichaAliens2.png" alt="Ficha 2">
+                      <img class="fichaAlien"src="img/fichasAliens3.png" alt="Ficha 3">
                     </div>
                   </div>
-               
-                  
-                 
-             
-               
                 </form>
               </div>
         </div>
-
+            <div class=" none  " id="nombreJugador1"></div>
+            <div class="  none " id="nombreJugador2"></div>
 
     </div>
 </body>

@@ -72,20 +72,20 @@ class Juego {
             return { x, y };
         };
     
-        // Generar fichas para Aliens (derecha del tablero)
+        
         for (let i = 0; i < cantFichas; i++) {
             const alienPos = getRandomPosition(tablero.posX + tablero.ancho + tablero.margen, tablero.posX + tablero.ancho + 100, posYMin, posYMax);
    
-            let fichaAlien = new ficha(alienPos.x, alienPos.y, this.ctx, 25, this.fichaElegidaAliens, 'aliens');
+            let fichaAlien = new ficha(alienPos.x, alienPos.y, this.ctx, 35, this.fichaElegidaAliens, 'aliens');
             fichaAlien.setPosicionInicial(alienPos.x, alienPos.y);
             this.fichasAliens.push(fichaAlien);
         }
     
-        // Generar fichas para Humanos (izquierda del tablero)
+      
         for (let i = 0; i < cantFichas; i++) {
             const humanoPos = getRandomPosition(tablero.posX - 100, tablero.posX - tablero.margen, posYMin, posYMax);
             
-            let fichaHumano = new ficha(humanoPos.x, humanoPos.y, this.ctx, 25, this.fichaElegidaHumanos, 'humanos');
+            let fichaHumano = new ficha(humanoPos.x, humanoPos.y, this.ctx, 35, this.fichaElegidaHumanos, 'humanos');
             fichaHumano.setPosicionInicial(humanoPos.x, humanoPos.y);
             this.fichasHumanos.push(fichaHumano);
         }
@@ -248,12 +248,12 @@ class Juego {
     }
     reDrawCanvas() {
         // Borra todo el canvas
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        ctx.fillStyle = "#FF0000";  
-   
-        ctx.fillRect(0, 0, canvas.width, canvas.height);  
-        ctx.beginPath()
+       
+        let img = new Image();
+      img.src = "./img/fondoCanvasPresentacion.png"
         
+             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      
         this.play()
         
     }

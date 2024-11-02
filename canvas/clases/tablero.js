@@ -22,7 +22,7 @@ class Tablero {
             for (let j = 0; j < this.tamañoTableroY; j++) {
                 let posiciones = this.calcularPosCasilleros(i, j);
                 if (j != 0) {
-                    fila.push(new casillero(posiciones.posx, posiciones.posY, this.ctx, this.widthCelda, this.heightCelda, './img/casillero2.webp', i));
+                    fila.push(new casillero(posiciones.posx, posiciones.posY, this.ctx, this.widthCelda, this.heightCelda, './img/casillero1.png', i));
                 } else {
                     fila.push(new casillero(posiciones.posx, posiciones.posY, this.ctx, this.widthCelda, this.heightCelda, './img/Variant2.png', i));
                 }
@@ -144,15 +144,15 @@ class Tablero {
             return acumulado;
         };
 
-        // Verificar la diagonal de derecha a izquierda (↘ y ↖)
+        
         let totalFichasDiagonal1 =
-            contarFichasEnDireccion(1, 1) +  // Dirección ↘
-            contarFichasEnDireccion(-1, -1) - 1; // Dirección ↖ (restamos 1 para no contar la ficha inicial dos veces)
+            contarFichasEnDireccion(1, 1) +  
+            contarFichasEnDireccion(-1, -1) - 1; 
 
-        // Verificar la diagonal de izquierda a derecha (↙ y ↗)
+
         let totalFichasDiagonal2 =
-            contarFichasEnDireccion(1, -1) +  // Dirección ↙
-            contarFichasEnDireccion(-1, 1) - 1; // Dirección ↗ (restamos 1 para no contar la ficha inicial dos veces)
+            contarFichasEnDireccion(1, -1) +  
+            contarFichasEnDireccion(-1, 1) - 1; 
 
         return totalFichasDiagonal1 >= nFichas || totalFichasDiagonal2 >= nFichas;
     }
